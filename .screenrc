@@ -1,0 +1,24 @@
+term screen-256color
+shelltitle ''
+setenv SCREEN "screen"
+vbell off
+autodetach on
+altscreen on
+startup_message off
+msgwait 10
+escape ^Aa
+bind c screen 1
+defscrollback 4096
+
+hardstatus alwayslastline '%{= M} %H %{= G} %l %= %{= w}%-w%{+b r}%n*%t%{-b r}%{w}%+w %= %{c}%d %D %{B}%c '
+
+# %{= ky}     set color to yellow on black.
+# %{= yk}     set color to black on yellow.
+# %{=r}       reverse the color attrs
+# %-Lw        all window #s, titles, and flags before the current window.
+# %n %t       current window number and title.
+# %+Lw        all windows #s, titles, and flags after the current window.
+# %-=         pad remaining spaces.
+# %M%d        month and day, like MmmDD.
+# %c          current time, like HH:MM.
+# %H          hostname
