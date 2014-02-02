@@ -4,3 +4,6 @@
 *.swp
 *.o
 *.a
+tags
+.vim/.netrwhist
+.vim/bundle/*
