@@ -1,0 +1,51 @@
+[color]
+    status      = auto
+    branch      = auto
+    interactive = auto
+    diff        = auto
+
+[alias]
+    l      = !git ll -n 10 | cat | nl -w 3 -v 0 -s \"  \"
+    ll     = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
+    lg     = log
+    graph  = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    graphl = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+
+    a      = add
+    au     = add -u
+
+    s      = status -sb
+    ss     = status
+
+    rh     = reset HEAD
+    undo   = reset --soft HEAD^
+
+    bl     = branch -l
+
+    co     = checkout
+    cp     = checkout -
+
+    d      = diff
+    ds     = diff --staged
+    dl     = diff HEAD~1 HEAD
+    dts    = difftool --staged
+    dtl    = difftool HEAD~1 HEAD
+
+    c      = commit
+    cm     = commit --amend
+    amend  = commit --amend -C HEAD
+
+[diff]
+    tool = vimdiff
+
+[difftool]
+    prompt = false
+
+[core]
+    excludesfile = ~/.gitignore
+
+[include]
+    path = ~/.gitconfig_local
+
+[github]
+    user = crusador
