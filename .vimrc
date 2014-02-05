@@ -95,11 +95,9 @@ set nocompatible
         endfunction
 
         function! LightlineFilename()
-            let fname = expand('%:t')
+            let fname = expand('%:r:t')
             return fname =~ 'NERD_tree' ? '' :
-                    \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-                    \ ('' != fname ? fname : '[No Name]') .
-                    \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+                    \ ('' != fname ? fname : '[No Name]')
         endfunction
 
         function! LightlineMode()
