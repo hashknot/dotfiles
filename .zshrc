@@ -1,17 +1,24 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export TERM="xterm-256color"
-[ $SCREEN ] && export TERM="screen-256color"
 
-if [ ! $SCREEN ]; then
-    screen
-fi
+# [ $SCREEN ] && export TERM="screen-256color"
+#
+# if [ ! $SCREEN ]; then
+#     screen
+# fi
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM=$HOME/.zsh
 
 ZSH_THEME="crusador"
+
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART_ONCE=true
+ZSH_TMUX_AUTOCONNECT=false
+ZSH_TMUX_AUTOQUIT=false
+ZSH_TMUX_AUTORENAME=true
 
 # CASE_SENSITIVE="true"
 # DISABLE_AUTO_UPDATE="true"
@@ -20,13 +27,10 @@ ZSH_THEME="crusador"
 # DISABLE_AUTO_TITLE="true"
 # DISABLE_CORRECTION="true"
 # COMPLETION_WAITING_DOTS="true"
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # oh-my-zsh plugins
-plugins=(git extract django command-not-found repo screen lol rsync colorize)
+plugins=(common-aliases git python pip extract django command-not-found repo tmux lol rsync colorize colored-man vundle)
 
 source $ZSH/oh-my-zsh.sh
 
