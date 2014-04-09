@@ -97,10 +97,19 @@ set nocompatible
         endfunction
 
         function! LightlineFilename()
-            let fname = expand('%:r:t')
+            let fname = expand('%:t')
             return fname =~ 'NERD_tree' ? '' :
                     \ ('' != fname ? fname : '[No Name]')
         endfunction
+
+        function! LightlineFileDir()
+            let dirname = expand('%:p:h')
+            let fname = expand('%:t')
+            return winwidth(0) < 80 ? '' :
+                    \ fname =~ 'NERD_tree' ? '' :
+                    \ ('' != fname ? dirname : '')
+        endfunction
+
 
         function! LightlineMode()
             let fname = expand('%:t')
@@ -191,8 +200,8 @@ set nocompatible
             let g:lightline = {
                         \ 'colorscheme': 'default',
                         \ 'active': {
-                        \   'left': [ [ 'mode', 'paste' ],
-                        \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+                        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
+                        \   'right': [ [ 'lineinfo' ], ['percent'], [ 'filedir', 'fileformat', 'fileencoding', 'filetype' ] ]
                         \ },
                         \ 'component_function': {
                         \   'fugitive'     : 'LightlineFugitive',
@@ -202,6 +211,7 @@ set nocompatible
                         \   'fileencoding' : 'LightlineFileencoding',
                         \   'fileformat'   : 'LightlineFileformat',
                         \   'filetype'     : 'LightlineFiletype',
+                        \   'filedir'      : 'LightlineFileDir',
                         \   'mode'         : 'LightlineMode'
                         \ },
                         \ 'subseparator': { 'left': "|", 'right': "|" }
