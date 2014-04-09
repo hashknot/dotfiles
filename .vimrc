@@ -16,6 +16,7 @@ set nocompatible
     set encoding=utf-8
 
 " Bundles
+    Bundle "nanotech/jellybeans.vim"
     Bundle "tomtom/tlib_vim"
     Bundle "MarcWeber/vim-addon-mw-utils"
     Bundle "aperezdc/vim-template"
