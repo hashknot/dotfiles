@@ -20,11 +20,15 @@ then
             if [[ $ZSH_TMUX_AUTORENAME != "true" ]]; then
                 return
             fi
+            local title
             local -a cmd; cmd=(${(z)1}) # the command string
             index=$command_titles[$cmd[1]]
             title=$cmd[1]
             if [ $index ]; then
                 title=$cmd[$index]
+            fi
+            if [ ${#title} -gt 25 ]; then
+                title="..$(echo $title | tail -c 25)"
             fi
             tmux rename-window $title
         }
@@ -35,8 +39,12 @@ then
             if [[ $ZSH_TMUX_AUTORENAME != "true" ]]; then
                 return
             fi
-            _path=$(eval $_GET_PATH)
-            tmux rename-window $_path
+            local title
+            title="$(eval $_GET_PATH)"
+            if [ ${#title} -gt 25 ]; then
+                title="..$(echo $title | tail -c 25)"
+            fi
+            tmux rename-window $title
         }
     fi
 fi
