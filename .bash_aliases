@@ -9,6 +9,7 @@ alias la='ls -ahlt --color=auto'
 alias pdflatex='pdflatex --interaction batchmode'
 alias vim='vim -p '
 alias vimo='vim -O '
+alias v=vim
 alias more='less'
 alias wget='wget -c '
 alias screens='screen -ls'
@@ -27,3 +28,4 @@ alias repoUpdate='repo checkout stage && repo forall -c "git remote update && gi
 alias gut='git'
 alias cd..='cd ..'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias rm=\rm
