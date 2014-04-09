@@ -283,16 +283,20 @@ set nocompatible
 
     " Leader key maps
         let mapleader =  ","
-        map   <leader>,  ,<esc>
+        map   <leader>,  ,,<esc>
         vmap  <leader>C  <esc>;'<,'>:w !xclip -selection clipboard -i <CR>
         map   <leader>R  ;s/\s\+$//<cr>
         map   <leader>s  ;let @/=""<CR>
         map   <leader>v  ;tabe $MYVIMRC<CR>
         map   <leader>V  ;so $MYVIMRC<CR>
-        map   <leader>x  <esc>;windo q<cr>
-        map   <leader>X  <esc>;!chmod +x %<CR>
+        map   <leader>x  ;windo q<cr>
+        map   <leader>X  ;!chmod +x %<CR>
         vmap  <leader>t  ;Tabularize /\v
         vmap  <leader>T  ;Tabularize /\v=Tabularize2ColumnsRegex()<CR><CR>
+        nnoremap   <leader>/  /
+        vnoremap   <leader>/  /
+        nnoremap   <leader>?  ?
+        vnoremap   <leader>?  ?
 
         " Unite maps
             map   <leader>ub  ;Unite buffer<cr>
@@ -311,6 +315,7 @@ set nocompatible
         map <space>k  <c-W>k
         map <space>l  <c-W>l
         map <space>w  <c-W>w
+        map <space><space>  <c-W>w
         map <space>W  <c-W>W
         map <space>=  <c-W>=
         map <space>\| <c-W>\|
