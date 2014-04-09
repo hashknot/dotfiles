@@ -36,6 +36,7 @@ set nocompatible
     Bundle "tpope/vim-unimpaired"
     Bundle "airblade/vim-gitgutter"
     Bundle "matchit.zip"
+    Bundle "Shougo/unite.vim"
 
 " Indent
     filetype plugin indent on       " enable detection, plugins and indenting in one step
@@ -282,6 +283,12 @@ set nocompatible
         map   <leader>X  <esc>;!chmod +x %<CR>
         vmap  <leader>t  ;Tabularize /\v
         vmap  <leader>T  ;Tabularize /\v=Tabularize2ColumnsRegex()<CR><CR>
+
+        " Unite maps
+            map   <leader>ub  ;Unite buffer<cr>
+            map   <leader>uf  ;Unite file<CR>
+            map   <leader>ut  ;Unite tab<CR>
+            map   <leader>uu  ;Unite buffer file tab<CR>
 
     " Space key maps (All are used for managing windows)
         map <space>q  <c-W>q
