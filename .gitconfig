@@ -26,6 +26,7 @@
     cp     = checkout -
 
     d      = diff
+    dt     = difftool
     ds     = diff --staged
     dl     = diff HEAD~1 HEAD
     dts    = difftool --staged
