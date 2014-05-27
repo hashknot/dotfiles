@@ -38,6 +38,9 @@ set nocompatible
     Bundle "matchit.zip"
     Bundle "Shougo/unite.vim"
     Bundle "nathanaelkane/vim-indent-guides"
+    Bundle "sk1418/Join"
+    Bundle "osyo-manga/vim-anzu"
+    Bundle "Raimondi/delimitMate"
 
 " Indent
     filetype plugin indent on       " enable detection, plugins and indenting in one step
@@ -270,6 +273,11 @@ set nocompatible
         vnoremap ? ?\v
         nnoremap / /\v
         vnoremap / /\v
+        nmap n <Plug>(anzu-n-with-echo)
+        nmap N <Plug>(anzu-N-with-echo)
+        nmap * <Plug>(anzu-star-with-echo)
+        nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+        nmap # <Plug>(anzu-sharp-with-echo)
         noremap! <F1>  <Esc>
 
     " Control key maps
