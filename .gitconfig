@@ -6,7 +6,7 @@
 
 [alias]
     l      = !git ll -n 10 | cat | nl -w 3 -v 0 -s \"  \"
-    ll     = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
+    ll     = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]%C(reset)' --decorate --date=short
     lg     = log
     graph  = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
     graphl = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
@@ -21,6 +21,8 @@
     undo   = reset --soft HEAD^
 
     bl     = branch -l
+    bmv    = !sh -c 'git update-ref refs/heads/"$1" "$2"' -
+    bmvv   = !sh -c 'git bmv $(git name-rev --name-only HEAD) "$1"' -
 
     co     = checkout
     cp     = checkout -
@@ -35,6 +37,8 @@
     c      = commit
     cm     = commit --amend
     amend  = commit --amend -C HEAD
+
+    onto   = !sh -c 'git rebase --onto "$1" HEAD~1 $(git name-rev --name-only HEAD)' -
 
 [diff]
     tool = vimdiff
