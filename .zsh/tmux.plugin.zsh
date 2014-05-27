@@ -14,9 +14,13 @@ then
             _GET_PATH='echo $PWD | sed "s/^\/Users\//~/;s/^\/home\//~/;s/^~$USER/~/"'
         fi
 
+        TMUX_TARGET_WINDOW=$(tmux display-message -p '#I')
+
         # called by zsh before executing a command
         function preexec()
         {
+            export TMUX_TARGET_WINDOW
+            TMUX_TARGET_WINDOW=$(tmux display-message -p '#I')
             if [[ $ZSH_TMUX_AUTORENAME != "true" ]]; then
                 return
             fi
@@ -30,12 +34,13 @@ then
             if [ ${#title} -gt 25 ]; then
                 title="..$(echo $title | tail -c 25)"
             fi
-            tmux rename-window $title
+            tmux rename-window -t $TMUX_TARGET_WINDOW "$title"
         }
 
         # called by zsh before showing the prompt
         function precmd()
         {
+            export TMUX_TARGET_WINDOW
             if [[ $ZSH_TMUX_AUTORENAME != "true" ]]; then
                 return
             fi
@@ -44,7 +49,7 @@ then
             if [ ${#title} -gt 25 ]; then
                 title="..$(echo $title | tail -c 25)"
             fi
-            tmux rename-window $title
+            tmux rename-window -t $TMUX_TARGET_WINDOW "$title"
         }
     fi
 fi
