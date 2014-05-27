@@ -37,6 +37,7 @@ set nocompatible
     Bundle "airblade/vim-gitgutter"
     Bundle "matchit.zip"
     Bundle "Shougo/unite.vim"
+    Bundle "nathanaelkane/vim-indent-guides"
 
 " Indent
     filetype plugin indent on       " enable detection, plugins and indenting in one step
@@ -187,8 +188,6 @@ set nocompatible
 
 " Colors
     colorscheme jellybeans
-    hi CursorLine term=none cterm=none ctermbg=0
-    hi ColorColumn ctermbg=black guibg=black
     hi ExtraWhitespace ctermbg=none ctermfg=red
     hi LeadingTab ctermbg=none ctermfg=darkgray
 
@@ -245,6 +244,7 @@ set nocompatible
     set noswapfile                  " do not write annoying intermediate swap files,
     set directory=~/.vim/.tmp,~/tmp,/tmp " store swap files in one of these directories
     set viminfo='20,\"80            " read/write a .viminfo file, don't store more
+    set wildmode=longest,list,full
     set wildmenu                    " make tab completion for files/buffers act like bash
     set wildignore=*.swp,*.bak,*.pyc,*.class
     set noerrorbells                " don't beep
@@ -350,6 +350,8 @@ set nocompatible
 " Plugin Settings
     let g:EasyMotion_leader_key = '<Leader>'
     let g:sparkupNextMapping = '<c-y>'
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_enable_on_vim_startup = 1
     let NERDTreeIgnore = ['\.pyc$']
 
 " Macros
@@ -366,5 +368,6 @@ set nocompatible
         au BufNewFile,BufRead *.html    set ts=4 |  set sw=4              |  set cc=0
         au BufNewFile,BufRead *.py      set tw=0 |  set foldmethod=indent |  set foldenable |  set foldlevel=0
         au BufNewFile,BufRead *.vimrc   set tw=0 |  set foldmethod=indent |  set foldenable |  set foldlevel=0
+        au BufNewFile,BufRead COMMIT_EDITMSG        if &ft == 'gitcommit' | set tw=50
 
     autocmd BufEnter * silent! lcd %:p:h
