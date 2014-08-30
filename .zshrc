@@ -40,6 +40,7 @@ plugins=(
     colored-man
     vundle
     expand-dots-to-parent-dirs
+    rooter
 )
 
 source $ZSH/oh-my-zsh.sh
