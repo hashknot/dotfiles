@@ -1,0 +1,1 @@
+$(".navbar").css({"display":"none"})
