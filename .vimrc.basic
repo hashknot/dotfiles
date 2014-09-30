@@ -19,6 +19,13 @@ set nocompatible
     syntax on
 
 " Functions
+    function! Standardize()
+        %s/\v([^ =&|%+/*\-!])\=([^ =])/\1 = \2/gc
+        %s/\v([^ ])\=\=([^ ])/\1 == \2/gc
+        %s/\v([^ ])([&|%+/*\-!])\=([^ ])/\1 \2= \3/gc
+        %s/\v([^ ])([&|%+/*\-])([^ =])/\1 \2 \3/gc
+    endfunction
+
     " Define all tab width specific options to the passed value
     function! SetTabWidth(width)
         exec 'set tabstop='    .a:width
@@ -78,10 +85,12 @@ set nocompatible
         set showtabline=2  " 0, 1 or 2; when to use a tab pages line
 
     " Other
+        set list
+        set listchars=tab:»\ ,trail:«,nbsp:«
         set relativenumber
         set lazyredraw
         set title                       " change the terminal's title
-        set scrolloff=4                 " Always keep 4 lines off the edges when scrolling up/down
+        set scrolloff=2                 " Always keep 4 lines off the edges when scrolling up/down
         set showcmd                     " show (partial) command in the last line of the screen
                                         " this also shows visual selection info
 
@@ -143,6 +152,7 @@ set nocompatible
         vmap  <leader>C  <esc>;'<,'>:w !xclip -selection clipboard -i <CR>
         map   <leader>R  ;s/\s\+$//<cr>
         map   <leader>s  ;let @/=""<CR>
+        vmap  <leader>S  <esc>;'<,'>:!sort<CR>
         map   <leader>v  ;tabe $MYVIMRC<CR>
         map   <leader>V  ;so $MYVIMRC<CR>
         map   <leader>x  ;windo q<cr>
@@ -163,12 +173,14 @@ set nocompatible
         map <space>k  <c-W>k
         map <space>l  <c-W>l
         map <space>w  <c-W>w
-        map <space><space>  <c-W>w
         map <space>W  <c-W>W
         map <space>=  <c-W>=
         map <space>\| <c-W>\|
         map <space>>  5<c-W>>
         map <space><  5<c-W><
+        map <space>+  ;resize +1<CR>
+        map <space>-  ;resize -1<CR>
+        nmap <space><space> ;exe "tabn ".g:lasttab<CR>
 
     " 'g' key maps
         map gr ;vertical resize 85<cr>
@@ -177,6 +189,7 @@ set nocompatible
 
     " 'co' key maps
         map com ;call ToggleMouse()<CR>
+        map cof ;set foldmethod=indent<CR>
 
     " [] based key maps
         map ]] j0[[%/{<CR>
@@ -200,8 +213,8 @@ set nocompatible
 " Automate
     au BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$\| \+\ze\t', -1)
     au BufWinEnter * call matchadd('LeadingTab', '^\t\+', -1)
-    set list
-    set listchars=tab:»\ ,trail:«,nbsp:«
+    let g:lasttab = 1
+    au TabLeave * let g:lasttab = tabpagenr()
 
     " Filetype specific
         au BufNewFile,BufRead *.html    set ts=4 |  set sw=4              |  set cc=0
@@ -209,4 +222,6 @@ set nocompatible
         au BufNewFile,BufRead *.vimrc   set tw=0 |  set foldmethod=indent |  set foldenable |  set foldlevel=0
         au BufNewFile,BufRead COMMIT_EDITMSG        if &ft == 'gitcommit' | set tw=50
 
-    autocmd BufEnter * silent! lcd %:p:h
+    if &diff != 1
+        autocmd BufEnter * silent! lcd %:p:h
+    endif
