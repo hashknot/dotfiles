@@ -7,6 +7,7 @@ then
     then
 
         local -A command_titles
+        local OVERFLOW_SIZE=13
         command_titles[ssh]=-1
         command_titles[sudo]=2
 
@@ -31,8 +32,8 @@ then
             if [ $index ]; then
                 title=$cmd[$index]
             fi
-            if [ ${#title} -gt 25 ]; then
-                title="..$(echo $title | tail -c 25)"
+            if [ ${#title} -gt $OVERFLOW_SIZE ]; then
+                title="..$(echo $title | tail -c $OVERFLOW_SIZE)"
             fi
             tmux rename-window -t $TMUX_TARGET_WINDOW "$title"
         }
@@ -46,8 +47,8 @@ then
             fi
             local title
             title="$(eval $_GET_PATH)"
-            if [ ${#title} -gt 25 ]; then
-                title="..$(echo $title | tail -c 25)"
+            if [ ${#title} -gt $OVERFLOW_SIZE ]; then
+                title="..$(echo $title | tail -c $OVERFLOW_SIZE)"
             fi
             tmux rename-window -t $TMUX_TARGET_WINDOW "$title"
         }
