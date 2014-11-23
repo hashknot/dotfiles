@@ -1,0 +1,212 @@
+scriptencoding utf-8
+set nocompatible
+
+" Terminal
+    set term=screen-256color
+    set t_Co=256
+    set ttyfast
+    set shell=zsh
+
+" Encoding
+    set termencoding=utf-8
+    set encoding=utf-8
+
+" Indent
+    filetype plugin indent on       " enable detection, plugins and indenting in one step
+    set cindent
+    set smartindent                 " Do smart indenting when starting a new line
+    set autoindent
+    syntax on
+
+" Functions
+    " Define all tab width specific options to the passed value
+    function! SetTabWidth(width)
+        exec 'set tabstop='    .a:width
+        exec 'set shiftwidth=' .a:width
+        exec 'set softtabstop='.a:width
+    endfunction
+
+    " Toggle tw=0/80
+    function! ToggleTW()
+        if &tw == 0
+            set tw=80
+            return
+        endif
+        set tw=0
+    endfunction
+
+    " Toggle mouse=c/a
+    function! ToggleMouse()
+        if &mouse == 'c'
+            set mouse=a
+            return
+        endif
+        set mouse=c
+    endfunction
+
+" Tab character
+    call SetTabWidth(4)
+    set shiftround  " Round indent to multiple of 'shiftwidth'
+    set expandtab
+    set smarttab
+
+" Search
+    set incsearch
+    set ignorecase
+    set smartcase
+    set nohlsearch
+
+" Text width
+    set tw=80
+    set wrap
+    set cc=+1           "Display colorcolumn at tw+1
+
+" Folding
+    set foldenable
+    set foldmethod=indent
+    set foldlevelstart=99
+    set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo "which commands open a fold
+
+" Colors
+    colorscheme torte
+    hi ExtraWhitespace ctermbg=none ctermfg=red
+    hi LeadingTab ctermbg=none ctermfg=darkgray
+
+" Appearance
+    " Tabs
+        set tabpagemax=20
+        set showtabline=2  " 0, 1 or 2; when to use a tab pages line
+
+    " Other
+        set relativenumber
+        set lazyredraw
+        set title                       " change the terminal's title
+        set scrolloff=4                 " Always keep 4 lines off the edges when scrolling up/down
+        set showcmd                     " show (partial) command in the last line of the screen
+                                        " this also shows visual selection info
+
+" Behaviour
+    set switchbuf=useopen
+    set backspace=indent,eol,start  " allow backspacing over everything in insert mode
+    set history=1000                " remember more commands and search history
+    set splitright                  " split on the right side
+    set splitbelow                  " split below
+    set undolevels=1000             " use many muchos levels of undo
+    if v:version >= 730
+        set undofile                " keep a persistent backup file
+        set undodir=~/.vim/.undo,~/tmp,/tmp
+    endif
+    set nobackup                    " do not keep backup files, it's 70's style cluttering
+    set noswapfile                  " do not write annoying intermediate swap files,
+    set directory=~/.vim/.tmp,~/tmp,/tmp " store swap files in one of these directories
+    set viminfo='20,\"80            " read/write a .viminfo file, don't store more
+    set wildmode=longest,list,full
+    set wildmenu                    " make tab completion for files/buffers act like bash
+    set wildignore=*.swp,*.bak,*.pyc,*.class
+    set noerrorbells                " don't beep
+    set timeoutlen=500
+
+" Maps
+    " Standard keys remaps
+        nnoremap ; :
+        nnoremap : ;
+        vnoremap ; :
+        vnoremap : ;
+        nnoremap ' `
+        nnoremap ` '
+        nnoremap 0 ^
+        nnoremap ^ 0
+        vnoremap 0 ^
+        vnoremap ^ 0
+        map      Q <Nop>
+        map      K <Nop>
+        nmap     j gj
+        nmap     k gk
+        nnoremap ? ?\v
+        vnoremap ? ?\v
+        nnoremap / /\v
+        vnoremap / /\v
+        noremap! <F1>  <Esc>
+
+    " Control key maps
+        inoremap <C-f> <C-x><C-f>
+        inoremap <C-l> <C-x><C-l>
+        imap     <C-c> <esc>;
+        map      <C-t> <esc>;tabe 
+        imap     <C-t> <esc>;tabe 
+        nnoremap <C-Tab> %
+        vnoremap <C-Tab> %
+
+    " Leader key maps
+        let mapleader =  ","
+        map   <leader>,  ,,<esc>
+        vmap  <leader>C  <esc>;'<,'>:w !xclip -selection clipboard -i <CR>
+        map   <leader>R  ;s/\s\+$//<cr>
+        map   <leader>s  ;let @/=""<CR>
+        map   <leader>v  ;tabe $MYVIMRC<CR>
+        map   <leader>V  ;so $MYVIMRC<CR>
+        map   <leader>x  ;windo q<cr>
+        map   <leader>X  ;!chmod +x %<CR>
+        nnoremap   <leader>/  /
+        vnoremap   <leader>/  /
+        nnoremap   <leader>?  ?
+        vnoremap   <leader>?  ?
+
+    " Space key maps (All are used for managing windows)
+        map <space>q  <c-W>q
+        map <space>H  <c-W>H
+        map <space>J  <c-W>J
+        map <space>K  <c-W>K
+        map <space>L  <c-W>L
+        map <space>h  <c-W>h
+        map <space>j  <c-W>j
+        map <space>k  <c-W>k
+        map <space>l  <c-W>l
+        map <space>w  <c-W>w
+        map <space><space>  <c-W>w
+        map <space>W  <c-W>W
+        map <space>=  <c-W>=
+        map <space>\| <c-W>\|
+        map <space>>  5<c-W>>
+        map <space><  5<c-W><
+
+    " 'g' key maps
+        map gr ;vertical resize 85<cr>
+        map gR ;vertical resize 
+        map gw ;call ToggleTW()<CR>
+
+    " 'co' key maps
+        map com ;call ToggleMouse()<CR>
+
+    " [] based key maps
+        map ]] j0[[%/{<CR>
+        map [[ ?{<CR>w99[{
+        map ][ /}<CR>b99]}
+        map [] k$][%?}<CR>
+
+    " Custom commands
+        com! -nargs=1 -complete=file Rot tab sview <args>
+        com! -nargs=1 -complete=file Rov vnew | view <args>
+        com! -nargs=1 -complete=file Ro view <args>
+        com! Reload tabdo :windo :e %
+        com! Q q
+        com! Qa qa
+        com! Qall qall
+
+" Macros
+    let @m='/<<<<<<<<kbkbkbkbkbkbkbkb\<\<\<\<\<\<dd/=====kbkbkbkbkb\=\=\=\=\=\=\kbV/>>>>>kbkbkbkbkb\>\>\>\>\>\>x'
+    let @d='Oimport pdbpdb.set_trace()'
+
+" Automate
+    au BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$\| \+\ze\t', -1)
+    au BufWinEnter * call matchadd('LeadingTab', '^\t\+', -1)
+    set list
+    set listchars=tab:»\ ,trail:«,nbsp:«
+
+    " Filetype specific
+        au BufNewFile,BufRead *.html    set ts=4 |  set sw=4              |  set cc=0
+        au BufNewFile,BufRead *.py      set tw=0 |  set foldmethod=indent |  set foldenable |  set foldlevel=0
+        au BufNewFile,BufRead *.vimrc   set tw=0 |  set foldmethod=indent |  set foldenable |  set foldlevel=0
+        au BufNewFile,BufRead COMMIT_EDITMSG        if &ft == 'gitcommit' | set tw=50
+
+    autocmd BufEnter * silent! lcd %:p:h
