@@ -35,7 +35,7 @@ then
             if [ ${#title} -gt $OVERFLOW_SIZE ]; then
                 title="..$(echo $title | tail -c $OVERFLOW_SIZE)"
             fi
-            tmux rename-window -t $TMUX_TARGET_WINDOW "$title"
+            tmux rename-window -t $TMUX_TARGET_WINDOW -- "$title"
         }
 
         # called by zsh before showing the prompt
@@ -50,7 +50,7 @@ then
             if [ ${#title} -gt $OVERFLOW_SIZE ]; then
                 title="..$(echo $title | tail -c $OVERFLOW_SIZE)"
             fi
-            tmux rename-window -t $TMUX_TARGET_WINDOW "$title"
+            tmux rename-window -t $TMUX_TARGET_WINDOW -- "$title"
         }
     fi
 fi
