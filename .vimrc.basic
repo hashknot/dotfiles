@@ -222,6 +222,6 @@ set nocompatible
         au BufNewFile,BufRead *.vimrc   set tw=0 |  set foldmethod=indent |  set foldenable |  set foldlevel=0
         au BufNewFile,BufRead COMMIT_EDITMSG        if &ft == 'gitcommit' | set tw=50
 
-    if &diff != 1
+    if &diff != 1 && $NO_LCD != "true"
         autocmd BufEnter * silent! lcd %:p:h
     endif
