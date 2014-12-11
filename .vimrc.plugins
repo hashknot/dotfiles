@@ -189,6 +189,7 @@
         let g:pymode_doc_key = 'K'
         let g:pymode_lint = 0
         let g:pymode_virtualenv = 1
+        let g:pymode_virtualenv_path = $VIRTUAL_ENV
         let g:pymode_breakpoint = 1
         let g:pymode_breakpoint_key = '<leader>B'
         let g:pymode_syntax = 1

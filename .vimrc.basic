@@ -88,6 +88,7 @@ set nocompatible
         set list
         set listchars=tab:»\ ,trail:«,nbsp:«
         set relativenumber
+        set wrap
         set lazyredraw
         set title                       " change the terminal's title
         set scrolloff=2                 " Always keep 4 lines off the edges when scrolling up/down
