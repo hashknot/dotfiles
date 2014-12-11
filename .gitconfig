@@ -41,10 +41,16 @@
     onto   = !sh -c 'git rebase --onto "$1" HEAD~1 $(git name-rev --name-only HEAD)' -
 
 [diff]
-    tool = vimdiff
+    # tool = vimdiff
+    tool = myvimdiff
 
 [difftool]
     prompt = false
+
+# This difftool definition just sets NO_LCD env var to "true" before calling
+# vimdiff
+[difftool "myvimdiff"]
+    cmd = NO_LCD=true vimdiff "$LOCAL" "$REMOTE"
 
 [core]
     excludesfile = ~/.gitignore
