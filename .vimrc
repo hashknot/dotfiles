@@ -207,10 +207,6 @@ set nocompatible
         com! Qa qa
         com! Qall qall
 
-" Macros
-    let @m='/<<<<<<<<kbkbkbkbkbkbkbkb\<\<\<\<\<\<dd/=====kbkbkbkbkb\=\=\=\=\=\=\kbV/>>>>>kbkbkbkbkb\>\>\>\>\>\>x'
-    let @d='Oimport pdbpdb.set_trace()'
-
 " Automate
     au BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$\| \+\ze\t', -1)
     au BufWinEnter * call matchadd('LeadingTab', '^\t\+', -1)
