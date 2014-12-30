@@ -46,6 +46,12 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# Keyword macro for converting following command:
+#     git checkout branch
+# to:
+#     git onto branch
+# on pressing  Ctrl+x o
+bindkey -s '^xo' '^[[1~^[f^[donto^e'
 
 if [ -f ~/.bash_aliases ]; then
     source $HOME/.bash_aliases
