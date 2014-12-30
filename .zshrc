@@ -3,6 +3,7 @@ export LANG=en_US.UTF-8
 if [[ $TERM == (*256*|xterm) ]]; then
     export TERM="xterm-256color"
 fi
+export HISTSIZE=10000
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
