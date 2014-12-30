@@ -1,35 +1,42 @@
 " Vundle
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
+    filetype off                  " required by vundle
+    set rtp+=~/.vim/bundle/Vundle.vim/
 
-" Bundles
-    Bundle "nanotech/jellybeans.vim"
-    Bundle "tomtom/tlib_vim"
-    Bundle "MarcWeber/vim-addon-mw-utils"
-    Bundle "aperezdc/vim-template"
-    Bundle "garbas/vim-snipmate"
-    Bundle "godlygeek/tabular"
-    Bundle "honza/vim-snippets"
-    Bundle "itchyny/lightline.vim"
-    Bundle "Lokaltog/vim-easymotion"
-    Bundle "rstacruz/sparkup"
-    Bundle "scrooloose/nerdtree"
-    Bundle "scrooloose/syntastic"
-    Bundle "tomtom/tcomment_vim"
-    Bundle "tpope/vim-abolish"
-    Bundle "tpope/vim-fugitive"
-    Bundle "tpope/vim-repeat"
-    Bundle "tpope/vim-surround"
-    Bundle "tpope/vim-unimpaired"
-    Bundle "airblade/vim-gitgutter"
-    Bundle "matchit.zip"
-    Bundle "Shougo/unite.vim"
-    Bundle "nathanaelkane/vim-indent-guides"
-    Bundle "sk1418/Join"
-    Bundle "osyo-manga/vim-anzu"
-    Bundle "Raimondi/delimitMate"
-    Bundle "klen/python-mode"
-    Bundle "davidhalter/jedi-vim"
+    " Bundles
+        call vundle#begin()
+        Plugin 'gmarik/Vundle.vim'
+        Plugin 'nanotech/jellybeans.vim'
+        Plugin 'tomtom/tlib_vim'
+        Plugin 'MarcWeber/vim-addon-mw-utils'
+        Plugin 'aperezdc/vim-template'
+        Plugin 'garbas/vim-snipmate'
+        Plugin 'godlygeek/tabular'
+        Plugin 'honza/vim-snippets'
+        Plugin 'itchyny/lightline.vim'
+        Plugin 'Lokaltog/vim-easymotion'
+        Plugin 'rstacruz/sparkup'
+        Plugin 'scrooloose/nerdtree'
+        Plugin 'scrooloose/syntastic'
+        Plugin 'tomtom/tcomment_vim'
+        Plugin 'tpope/vim-abolish'
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'tpope/vim-repeat'
+        Plugin 'tpope/vim-surround'
+        Plugin 'tpope/vim-unimpaired'
+        Plugin 'airblade/vim-gitgutter'
+        Plugin 'matchit.zip'
+        Plugin 'Shougo/unite.vim'
+        Plugin 'nathanaelkane/vim-indent-guides'
+        Plugin 'sk1418/Join'
+        Plugin 'osyo-manga/vim-anzu'
+        Plugin 'Raimondi/delimitMate'
+        Plugin 'klen/python-mode'
+        Plugin 'davidhalter/jedi-vim'
+        Plugin 'michaeljsmith/vim-indent-object'
+        Plugin 'vim-scripts/scratch.vim'
+        call vundle#end()
+
+    filetype plugin on
 
 " Functions
     " Lightline functions
