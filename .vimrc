@@ -214,10 +214,10 @@ set nocompatible
     au TabLeave * let g:lasttab = tabpagenr()
 
     " Filetype specific
-        au BufNewFile,BufRead *.html    set ts=4 |  set sw=4              |  set cc=0
-        au BufNewFile,BufRead *.py      set tw=0 |  set foldmethod=indent |  set foldenable |  set foldlevel=0
-        au BufNewFile,BufRead *.vimrc   set tw=0 |  set foldmethod=indent |  set foldenable |  set foldlevel=0
-        au BufNewFile,BufRead COMMIT_EDITMSG        if &ft == 'gitcommit' | set tw=50
+        au BufNewFile,BufRead *.html    set ts=4 | set sw=4               | set cc=0
+        au BufNewFile,BufRead *.py      set tw=0 | set foldmethod=indent  | set foldenable | set foldlevel=0
+        au BufNewFile,BufRead *.vimrc   set tw=0 | set foldmethod=indent  | set foldenable | set foldlevel=0
+        au BufNewFile,BufRead COMMIT_EDITMSG       set filetype=gitcommit | set tw=50
 
     if &diff != 1 && $NO_LCD != "true"
         autocmd BufEnter * silent! lcd %:p:h
