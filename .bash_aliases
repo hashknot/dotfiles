@@ -24,13 +24,15 @@ alias ports='netstat -tlnp | column -t '
 alias xo='xdg-open '
 alias df='df -h '
 alias py='python '
-alias repoUpdate='repo checkout stage && repo forall -c "git pull origin stage:stage"'
 alias repoClean='repo forall -c "git clean -dfx" -p'
 alias gut='git'
 alias cd..='cd ..'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias rm=\rm
 alias gs='g s'
+alias gl='g l'
+alias grep='grep --color=auto'
+alias _='sudo'
 
 function define() {
     wn $1 -over
