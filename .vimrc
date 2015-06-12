@@ -34,12 +34,17 @@ set nocompatible
     endfunction
 
     " Toggle tw=0/80
-    function! ToggleTW()
-        if &tw == 0
-            set tw=80
-            return
+    function! ToggleCC()
+        if g:ccSet == 1
+            set cc=0
+            let g:currentTw = &tw
+            let g:ccSet = 0
+            set tw=0
+        else
+            exec 'set tw='.g:currentTw
+            set cc=+1
+            let g:ccSet = 1
         endif
-        set tw=0
     endfunction
 
     " Toggle mouse=c/a
@@ -138,6 +143,12 @@ set nocompatible
         vnoremap / /\v
         noremap! <F1>  <Esc>
 
+    " Standard keymap remap
+        noremap  zH zt
+        vnoremap zH zt
+        noremap  zL zb
+        vnoremap zL zb
+
     " Control key maps
         inoremap <C-f> <C-x><C-f>
         inoremap <C-l> <C-x><C-l>
@@ -150,7 +161,7 @@ set nocompatible
     " Leader key maps
         let mapleader =  ","
         map   <leader>,  ,,<esc>
-        vmap  <leader>C  <esc>;'<,'>:w !xclip -selection clipboard -i <CR>
+        vmap  <leader>C  <esc>;'<,'>:w !DISPLAY=:0 xclip -selection clipboard -i <CR>
         map   <leader>R  ;s/\s\+$//<cr>
         map   <leader>s  ;let @/=""<CR>
         vmap  <leader>S  <esc>;'<,'>:!sort<CR>
@@ -186,7 +197,8 @@ set nocompatible
     " 'g' key maps
         map gr ;vertical resize 85<cr>
         map gR ;vertical resize 
-        map gw ;call ToggleTW()<CR>
+        let g:ccSet=1
+        map gw ;call ToggleCC()<CR>
 
     " 'co' key maps
         map com ;call ToggleMouse()<CR>
@@ -215,7 +227,7 @@ set nocompatible
 
     " Filetype specific
         au BufNewFile,BufRead *.html    set ts=4 | set sw=4               | set cc=0
-        au BufNewFile,BufRead *.py      set tw=0 | set foldmethod=indent  | set foldenable | set foldlevel=0
+        au BufNewFile,BufRead *.py      set tw=0 | set foldmethod=indent  | set foldenable | set foldlevel=0 | set foldignore=
         au BufNewFile,BufRead *.vimrc   set tw=0 | set foldmethod=indent  | set foldenable | set foldlevel=0
         au BufNewFile,BufRead COMMIT_EDITMSG       set filetype=gitcommit | set tw=50
 

@@ -33,7 +33,10 @@
         Plugin 'klen/python-mode'
         Plugin 'davidhalter/jedi-vim'
         Plugin 'michaeljsmith/vim-indent-object'
-        Plugin 'vim-scripts/scratch.vim'
+        Plugin 'crusador/scratch.vim'
+        Plugin 'xolox/vim-misc'
+        " Plugin 'xolox/vim-easytags'
+        " Plugin 'majutsushi/tagbar'
         call vundle#end()
 
     filetype plugin on
@@ -180,14 +183,18 @@
         map gn ;NERDTree<CR>
         map gN ;NERDTree<CR>
 
+    " Space key maps
+        " nmap <space>t ;TagbarOpen fj<CR>
+
 " Plugin Settings
     let g:EasyMotion_leader_key = '<Leader>'
     let g:sparkupNextMapping = '<c-y>'
-    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_enable_on_vim_startup = 0
     let g:indent_guides_guide_size = 1
     let g:indent_guides_start_level = 2
     let NERDTreeIgnore = ['\.pyc$']
     let NERDTreeMinimalUI = 1
+    let NERDTreeShowBookmarks = 1
     au BufNewFile,BufRead if &ft == "nerdtree" | call SetTabWidth(2)
 
     " pymode/jedi
