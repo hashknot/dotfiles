@@ -92,7 +92,7 @@ set nocompatible
     " Other
         set list
         set listchars=tab:»\ ,trail:«,nbsp:«
-        set relativenumber
+        set relativenumber number
         set wrap
         set lazyredraw
         set title                       " change the terminal's title
