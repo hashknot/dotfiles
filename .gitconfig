@@ -7,7 +7,7 @@
 [alias]
     l      = !git ll -n 10 | cat | nl -w 3 -v 0 -s \"  \"
     ll     = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]%C(reset)' --decorate --date=short
-    lg     = log
+    lg     = log --stat --max-count=10
     graph  = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
     graphl = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 
@@ -41,16 +41,10 @@
     onto   = !sh -c 'git rebase --onto "$1" HEAD~1 $(git name-rev --name-only HEAD)' -
 
 [diff]
-    # tool = vimdiff
-    tool = myvimdiff
+    tool = vimdiff
 
 [difftool]
     prompt = false
-
-# This difftool definition just sets NO_LCD env var to "true" before calling
-# vimdiff
-[difftool "myvimdiff"]
-    cmd = NO_LCD=true vimdiff "$LOCAL" "$REMOTE"
 
 [core]
     excludesfile = ~/.gitignore
