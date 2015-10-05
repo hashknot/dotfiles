@@ -30,17 +30,15 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
     common-aliases
     git
-    python pip django
+    python pip
     extract
     command-not-found
     repo
     tmux
-    lol
     rsync
     colorize
     colored-man
     vundle
-    expand-dots-to-parent-dirs
     rooter
 )
 
