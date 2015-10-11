@@ -2,6 +2,7 @@
 
 # Original author: godlygeek(https://github.com/godlygeek)
 # github.com/godlygeek/zsh-files/.zfunctions/edit-command-line
+
 function my-edit-command-line(){
     local tmpfile=${TMPPREFIX:-/tmp/zsh}ecl$$
     print -R - "$PREBUFFER$BUFFER" >$tmpfile

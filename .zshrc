@@ -40,7 +40,7 @@ plugins=(
     colored-man
     vundle
     rooter
-    my-edit-command-line
+    command-editor
 )
 
 source $ZSH/oh-my-zsh.sh
