@@ -1,6 +1,6 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-if [[ $TERM == (*256*|xterm) ]]; then
+if [ "$COLORTERM" = "gnome-terminal" -a "$TERM" "=~" "xterm.*" ]; then
     export TERM="xterm-256color"
 fi
 export HISTSIZE=10000
@@ -15,7 +15,6 @@ ZSH_TMUX_AUTOSTART=false
 ZSH_TMUX_AUTOSTART_ONCE=false
 ZSH_TMUX_AUTOCONNECT=false
 ZSH_TMUX_AUTOQUIT=false
-ZSH_TMUX_AUTORENAME=true
 
 # CASE_SENSITIVE="true"
 # DISABLE_AUTO_UPDATE="true"
@@ -28,6 +27,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # oh-my-zsh plugins
 plugins=(
+    autorename
     common-aliases
     git
     python pip
