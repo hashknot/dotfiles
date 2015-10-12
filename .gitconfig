@@ -49,6 +49,10 @@
 [core]
     excludesfile = ~/.gitignore
 
+[user]
+    name  = Jitesh Kamble
+    email = io@jite.sh
+
 [include]
     path = ~/.gitconfig_local
 
