@@ -39,6 +39,7 @@
     amend  = commit --amend -C HEAD
 
     onto   = !sh -c 'git rebase --onto "$1" HEAD~1 $(git name-rev --name-only HEAD)' -
+    ru     = remote update
 
 [diff]
     tool = vimdiff
