@@ -40,6 +40,7 @@
         Plugin 'alvan/vim-closetag'
         Plugin 'kshenoy/vim-signature'
         Plugin 'tommcdo/vim-exchange'
+        Plugin 'kien/ctrlp.vim'
         call vundle#end()
 
     filetype plugin on
@@ -181,6 +182,11 @@
             map   <leader>uf  ;Unite file<CR>
             map   <leader>ut  ;Unite tab<CR>
             map   <leader>uu  ;Unite buffer file tab<CR>
+
+        " CtrlP maps
+            map   <leader>pb  ;CtrlPBuffer<CR>
+            map   <leader>pf  ;CtrlP<CR>
+            map   <leader>pp  ;CtrlPMixed<CR>
 
     " 'g' key maps
         map gn ;NERDTree<CR>
