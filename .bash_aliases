@@ -33,6 +33,7 @@ alias gs='g s'
 alias gl='g l'
 alias grep='grep --color=auto'
 alias _='sudo'
+alias pyc='pyclean .'
 alias tl='tmux list-sessions'
 alias ta='tmux attach-session -t'
 
