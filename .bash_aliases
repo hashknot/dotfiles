@@ -33,6 +33,8 @@ alias gs='g s'
 alias gl='g l'
 alias grep='grep --color=auto'
 alias _='sudo'
+alias tl='tmux list-sessions'
+alias ta='tmux attach-session -t'
 
 function define() {
     wn $1 -over
