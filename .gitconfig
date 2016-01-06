@@ -41,6 +41,8 @@
     onto   = !sh -c 'git rebase --onto "$1" HEAD~1 $(git name-rev --name-only HEAD)' -
     ru     = remote update
 
+    wc     = whatchanged
+
 [diff]
     tool = vimdiff
 
