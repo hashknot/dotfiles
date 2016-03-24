@@ -4,7 +4,7 @@
 
     " Bundles
         call vundle#begin()
-        Plugin 'gmarik/Vundle.vim'
+        Plugin 'VundleVim/Vundle.vim'
         Plugin 'nanotech/jellybeans.vim'
         Plugin 'tomtom/tlib_vim'
         Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -221,3 +221,4 @@
         let g:pymode_syntax_indent_errors = g:pymode_syntax_all
         let g:pymode_folding = 1
         autocmd FileType python setlocal completeopt-=preview
+        autocmd FileType python setlocal foldmethod=expr
