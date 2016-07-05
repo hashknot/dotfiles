@@ -322,6 +322,7 @@ set nocompatible
         imap     <C-c> <esc>;
         map      <C-t> <esc>;tabe 
         imap     <C-t> <esc>;tabe 
+        map      <C-w>o ;tab sp<CR>
         nnoremap <C-Tab> %
         vnoremap <C-Tab> %
 
