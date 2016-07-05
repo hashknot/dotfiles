@@ -81,15 +81,15 @@ set nocompatible
 
     " Toggle tw=0/80
     function! ToggleCC()
-        if g:ccSet == 1
-            set cc=0
-            let g:currentTw = &tw
-            let g:ccSet = 0
-            set tw=0
-        else
-            exec 'set tw='.g:currentTw
+        if &cc == "0"
+            if &tw == 0
+                exec 'set tw='.w:tw
+            endif
             set cc=+1
-            let g:ccSet = 1
+        else
+            set cc=0
+            let w:tw = &tw
+            set tw=0
         endif
     endfunction
 
@@ -377,7 +377,6 @@ set nocompatible
     " 'g' key maps
         map gr ;vertical resize 85<cr>
         map gR ;vertical resize 
-        let g:ccSet=1
         map gw ;call ToggleCC()<CR>
         map gn ;NERDTree<CR>
         map gN ;NERDTree<CR>
