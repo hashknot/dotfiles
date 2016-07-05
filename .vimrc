@@ -1,6 +1,52 @@
 scriptencoding utf-8
 set nocompatible
 
+" Vundle
+    filetype off                  " required by vundle
+    set rtp+=~/.vim/bundle/Vundle.vim/
+
+    " Bundles
+        call vundle#begin()
+        Plugin 'VundleVim/Vundle.vim'
+        Plugin 'nanotech/jellybeans.vim'
+        Plugin 'tomtom/tlib_vim'
+        Plugin 'MarcWeber/vim-addon-mw-utils'
+        Plugin 'aperezdc/vim-template'
+        Plugin 'garbas/vim-snipmate'
+        Plugin 'godlygeek/tabular'
+        Plugin 'honza/vim-snippets'
+        Plugin 'itchyny/lightline.vim'
+        Plugin 'Lokaltog/vim-easymotion'
+        Plugin 'rstacruz/sparkup'
+        Plugin 'scrooloose/nerdtree'
+        Plugin 'scrooloose/syntastic'
+        Plugin 'tomtom/tcomment_vim'
+        Plugin 'tpope/vim-abolish'
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'tpope/vim-repeat'
+        Plugin 'tpope/vim-surround'
+        Plugin 'tpope/vim-unimpaired'
+        Plugin 'airblade/vim-gitgutter'
+        Plugin 'Shougo/unite.vim'
+        Plugin 'nathanaelkane/vim-indent-guides'
+        Plugin 'sk1418/Join'
+        Plugin 'osyo-manga/vim-anzu'
+        Plugin 'Raimondi/delimitMate'
+        Plugin 'klen/python-mode'
+        Plugin 'davidhalter/jedi-vim'
+        Plugin 'michaeljsmith/vim-indent-object'
+        Plugin 'crusador/scratch.vim'
+        Plugin 'xolox/vim-misc'
+        " Plugin 'xolox/vim-easytags'
+        " Plugin 'majutsushi/tagbar'
+        Plugin 'alvan/vim-closetag'
+        Plugin 'kshenoy/vim-signature'
+        Plugin 'tommcdo/vim-exchange'
+        Plugin 'kien/ctrlp.vim'
+        call vundle#end()
+
+    filetype plugin on
+
 " Terminal
     set term=screen-256color
     set t_Co=256
@@ -56,6 +102,96 @@ set nocompatible
         set mouse=c
     endfunction
 
+    " Lightline functions
+        " Override lightline's method to return 'n+' when there are 'n' modified buffers in a tab
+        function! lightline#tab#modified(n)
+            let winnr = tabpagewinnr(a:n)
+            let buflist = tabpagebuflist(a:n)
+            let m = 0 " &modified counter
+            " loop through each buffer in a tab
+            for b in buflist
+                " check and ++ tab's &modified count
+                if getbufvar( b, "&modified" )
+                let m += 1
+                endif
+            endfor
+            return (m > 0) ? (m > 1) ? m.'+' : '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
+        endfunction
+
+        function! LightlineModified()
+            if &filetype == "help"
+                return ""
+            elseif &modified
+                return "+"
+            elseif &modifiable
+                return ""
+            else
+                return ""
+            endif
+        endfunction
+
+        function! LightlineReadonly()
+            if &filetype == "help"
+                return ""
+            elseif &readonly
+                return "x"
+            else
+                return ""
+            endif
+        endfunction
+
+        function! LightlineFugitive()
+            try
+                if expand('%:t') !~? 'NERD' && exists('*fugitive#head')
+                let mark = 'Y '  " edit here for cool mark
+                let _ = fugitive#head()
+                return strlen(_) ? mark._ : ''
+                endif
+            catch
+            endtry
+            return ''
+        endfunction
+
+        function! LightlineFilename()
+            let fname = expand('%:t')
+            return fname =~ 'NERD_tree' ? '' :
+                    \ ('' != fname ? fname : '[No Name]')
+        endfunction
+
+        function! LightlineFileDir()
+            let dirname = expand('%:p:h')
+            let fname = expand('%:t')
+            return winwidth(0) < 80 ? '' :
+                    \ fname =~ 'NERD_tree' ? '' :
+                    \ ('' != fname ? dirname : '')
+        endfunction
+
+        function! LightlineMode()
+            let fname = expand('%:t')
+            return fname =~ 'NERD_tree' ? 'NERDTree' :
+                \ winwidth(0) > 60 ? lightline#mode() : ''
+        endfunction
+
+        function! LightlineFileencoding()
+            return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+        endfunction
+
+        function! LightlineFileformat()
+            return winwidth(0) > 70 ? &fileformat : ''
+        endfunction
+
+        function! LightlineFiletype()
+            return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+        endfunction
+
+    " Return the regex to tabularize the selected data into two columns with the provided delimiter
+    function! Tabularize2ColumnsRegex()
+        call inputsave()
+        let delim=input("Enter the delimiting string: ")
+        call inputrestore()
+        return "^.{-}\\zs".delim
+    endfunction
+
 " Tab character
     call SetTabWidth(4)
     set shiftround  " Round indent to multiple of 'shiftwidth'
@@ -80,11 +216,14 @@ set nocompatible
     set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo "which commands open a fold
 
 " Colors
-    colorscheme torte
+    colorscheme jellybeans
     hi ExtraWhitespace ctermbg=none ctermfg=red
     hi LeadingTab ctermbg=none ctermfg=darkgray
 
 " Appearance
+    set laststatus=2
+    set cul                         " Highlight cursor line
+
     " Tabs
         set tabpagemax=20
         set showtabline=2  " 0, 1 or 2; when to use a tab pages line
@@ -99,6 +238,27 @@ set nocompatible
         set scrolloff=2                 " Always keep 4 lines off the edges when scrolling up/down
         set showcmd                     " show (partial) command in the last line of the screen
                                         " this also shows visual selection info
+
+    " lightline configurations
+        let g:lightline = {
+                    \ 'colorscheme': 'default',
+                    \ 'active': {
+                    \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
+                    \   'right': [ [ 'lineinfo' ], ['percent'], [ 'filedir', 'fileformat', 'fileencoding', 'filetype' ] ]
+                    \ },
+                    \ 'component_function': {
+                    \   'fugitive'     : 'LightlineFugitive',
+                    \   'readonly'     : 'LightlineReadonly',
+                    \   'modified'     : 'LightlineModified',
+                    \   'filename'     : 'LightlineFilename',
+                    \   'fileencoding' : 'LightlineFileencoding',
+                    \   'fileformat'   : 'LightlineFileformat',
+                    \   'filetype'     : 'LightlineFiletype',
+                    \   'filedir'      : 'LightlineFileDir',
+                    \   'mode'         : 'LightlineMode'
+                    \ },
+                    \ 'subseparator': { 'left': "|", 'right': "|" }
+                    \ }
 
 " Behaviour
     set switchbuf=useopen
@@ -142,6 +302,11 @@ set nocompatible
         nnoremap / /\v
         vnoremap / /\v
         noremap! <F1>  <Esc>
+        nmap n <Plug>(anzu-n-with-echo)
+        nmap N <Plug>(anzu-N-with-echo)
+        nmap * <Plug>(anzu-star-with-echo)
+        nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+        nmap # <Plug>(anzu-sharp-with-echo)
 
     " Standard keymap remap
         noremap  zH zt
@@ -173,6 +338,19 @@ set nocompatible
         vnoremap   <leader>/  /
         nnoremap   <leader>?  ?
         vnoremap   <leader>?  ?
+        vmap  <leader>t  ;Tabularize /\v
+        vmap  <leader>T  ;Tabularize /\v=Tabularize2ColumnsRegex()<CR><CR>
+
+        " Unite maps
+            map   <leader>ub  ;Unite buffer<cr>
+            map   <leader>uf  ;Unite file<CR>
+            map   <leader>ut  ;Unite tab<CR>
+            map   <leader>uu  ;Unite buffer file tab<CR>
+
+        " CtrlP maps
+            map   <leader>pb  ;CtrlPBuffer<CR>
+            map   <leader>pf  ;CtrlP<CR>
+            map   <leader>pp  ;CtrlPMixed<CR>
 
     " Space key maps (All are used for managing windows)
         map <space>q  <c-W>q
@@ -199,6 +377,9 @@ set nocompatible
         map gR ;vertical resize 
         let g:ccSet=1
         map gw ;call ToggleCC()<CR>
+        map gn ;NERDTree<CR>
+        map gN ;NERDTree<CR>
+
 
     " 'co' key maps
         map com ;call ToggleMouse()<CR>
@@ -219,6 +400,34 @@ set nocompatible
         com! Qa qa
         com! Qall qall
 
+" Plugin Settings
+    let g:EasyMotion_leader_key = '<Leader>'
+    let g:sparkupNextMapping = '<c-y>'
+    let g:indent_guides_enable_on_vim_startup = 0
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_start_level = 2
+    let g:closetag_filenames = "*.html,*.xml"
+    let NERDTreeIgnore = ['\.pyc$']
+    let NERDTreeMinimalUI = 1
+    let NERDTreeShowBookmarks = 1
+    au BufNewFile,BufRead if &ft == "nerdtree" | call SetTabWidth(2)
+
+    " pymode/jedi
+        let g:pymode_rope = 0
+        let g:pymode_doc = 1
+        let g:pymode_doc_key = 'K'
+        let g:pymode_lint = 0
+        let g:pymode_virtualenv = 1
+        let g:pymode_virtualenv_path = $VIRTUAL_ENV
+        let g:pymode_breakpoint = 1
+        let g:pymode_breakpoint_key = '<leader>B'
+        let g:pymode_syntax = 1
+        let g:pymode_syntax_all = 1
+        let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+        let g:pymode_folding = 1
+        autocmd FileType python setlocal completeopt-=preview
+        autocmd FileType python setlocal foldmethod=expr
+
 " Automate
     au BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$\| \+\ze\t', -1)
     au BufWinEnter * call matchadd('LeadingTab', '^\t\+', -1)
@@ -227,15 +436,9 @@ set nocompatible
 
     " Filetype specific
         au BufNewFile,BufRead *.html    set ts=4 | set sw=4               | set cc=0
-        au BufNewFile,BufRead *.py      set tw=0 | set foldmethod=indent  | set foldenable | set foldlevel=0 | set foldignore=
         au BufNewFile,BufRead *.vimrc   set tw=0 | set foldmethod=indent  | set foldenable | set foldlevel=0
         au BufNewFile,BufRead COMMIT_EDITMSG       set filetype=gitcommit | set tw=50
 
     if &diff != 1 && $NO_LCD != "true"
         autocmd BufEnter * silent! lcd %:p:h
     endif
-
-" Plugins
-if filereadable(expand("~/.vimrc.plugins"))
-    so ~/.vimrc.plugins
-endif
