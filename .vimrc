@@ -386,6 +386,7 @@ set nocompatible
     " 'co' key maps
         map com ;call ToggleMouse()<CR>
         map cof ;set foldmethod=indent<CR>
+        map cot ;exe 'call inputsave() \| call SetTabWidth(input("Enter tab width: ")) \| call inputrestore()'<CR>
 
     " [] based key maps
         map ]] j0[[%/{<CR>
