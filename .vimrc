@@ -161,9 +161,11 @@ set nocompatible
         function! LightlineFileDir()
             let dirname = expand('%:p:h')
             let fname = expand('%:t')
-            return winwidth(0) < 80 ? '' :
-                    \ fname =~ 'NERD_tree' ? '' :
-                    \ ('' != fname ? dirname : '')
+            if fname =~ 'NERD_tree'
+                return ''
+            endif
+            let allowedLen = winwidth(0) - strlen(fname) - 80
+            return allowedLen < 0 ? '' : strlen(dirname) > allowedLen ? '..'.dirname[-(allowedLen):] : dirname
         endfunction
 
         function! LightlineMode()
