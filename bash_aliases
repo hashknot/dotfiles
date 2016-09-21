@@ -37,6 +37,10 @@ alias pyc='pyclean .'
 alias tl='tmux list-sessions'
 alias ta='tmux attach-session -t'
 
+alias txc='latexmk -c'
+alias txpdf='latexmk -quiet -f -pdf'
+alias txpvc='latexmk -pvc'
+
 function define() {
     wn $1 -over
 }
