@@ -75,6 +75,7 @@ _setup_vim(){
 
 _setup_zsh(){
     curl 'https://raw.githubusercontent.com/hashknot/prezto/master/install.zsh' | zsh
+    # wget -O - 'https://raw.githubusercontent.com/hashknot/prezto/master/install.zsh' 2>/dev/null | zsh
 }
 
 if [ "-a" == "$1" -o "-a" == "$2" ]; then
