@@ -41,6 +41,12 @@ alias txc='latexmk -c'
 alias txpdf='latexmk -quiet -f -pdf'
 alias txpvc='latexmk -pvc'
 
+alias ejectdrive='sudo udisksctl power-off --block-device'
+
 function define() {
     wn $1 -over
+}
+
+function ghclone() {
+    git clone "https://github.com/$1"
 }

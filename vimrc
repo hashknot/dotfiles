@@ -1,5 +1,4 @@
 scriptencoding utf-8
-set nocompatible
 
 " Vundle
     filetype off                  " required by vundle
@@ -48,14 +47,15 @@ set nocompatible
     filetype plugin on
 
 " Terminal
-    set term=screen-256color
-    set t_Co=256
-    set ttyfast
     set shell=zsh
 
 " Encoding
     set termencoding=utf-8
     set encoding=utf-8
+
+" nvim
+    " let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    " set termguicolors
 
 " Indent
     filetype plugin indent on       " enable detection, plugins and indenting in one step
