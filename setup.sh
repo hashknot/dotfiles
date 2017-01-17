@@ -85,6 +85,12 @@ if [ "-v" == "$1" -o "-v" == "$2" ]; then
     set -x
 fi
 
+if [ "-h" == "$1" ]; then
+    echo "-a    Yes to all"
+    echo "-v    Verbose mode"
+    exit 0
+fi
+
 _ask "Do you want to setup bash?"
 if [ $yes -eq 1 ]; then
     echo "Setting up bash..."
