@@ -6,42 +6,32 @@ scriptencoding utf-8
 
     " Bundles
         call vundle#begin()
-        Plugin 'VundleVim/Vundle.vim'
-        Plugin 'nanotech/jellybeans.vim'
-        Plugin 'tomtom/tlib_vim'
-        Plugin 'MarcWeber/vim-addon-mw-utils'
-        Plugin 'aperezdc/vim-template'
-        Plugin 'garbas/vim-snipmate'
-        Plugin 'godlygeek/tabular'
-        Plugin 'honza/vim-snippets'
-        Plugin 'itchyny/lightline.vim'
-        Plugin 'Lokaltog/vim-easymotion'
-        Plugin 'rstacruz/sparkup'
-        Plugin 'scrooloose/nerdtree'
-        Plugin 'scrooloose/syntastic'
-        Plugin 'tomtom/tcomment_vim'
-        Plugin 'tpope/vim-abolish'
-        Plugin 'tpope/vim-fugitive'
-        Plugin 'tpope/vim-repeat'
-        Plugin 'tpope/vim-surround'
-        Plugin 'tpope/vim-unimpaired'
-        Plugin 'airblade/vim-gitgutter'
-        Plugin 'Shougo/unite.vim'
-        Plugin 'nathanaelkane/vim-indent-guides'
-        Plugin 'sk1418/Join'
-        Plugin 'osyo-manga/vim-anzu'
-        Plugin 'Raimondi/delimitMate'
-        Plugin 'klen/python-mode'
-        Plugin 'davidhalter/jedi-vim'
-        Plugin 'michaeljsmith/vim-indent-object'
-        Plugin 'crusador/scratch.vim'
-        Plugin 'xolox/vim-misc'
-        " Plugin 'xolox/vim-easytags'
-        " Plugin 'majutsushi/tagbar'
-        Plugin 'alvan/vim-closetag'
-        Plugin 'kshenoy/vim-signature'
-        Plugin 'tommcdo/vim-exchange'
-        Plugin 'kien/ctrlp.vim'
+
+            Plugin 'VundleVim/Vundle.vim'               " Plugin manager
+
+            Plugin 'davidhalter/jedi-vim'               " Python auto-completion
+            Plugin 'godlygeek/tabular'                  " Support tabular alignment
+            Plugin 'hashknot/scratch.vim'               " Support 'Vscratch' buffer
+            Plugin 'kien/ctrlp.vim'                     " Intelligent file/buffer auto-completion
+            Plugin 'klen/python-mode'                   " Python auto-completion
+            Plugin 'Lokaltog/vim-easymotion'            " Support arbitrary jumps to words/characters
+            Plugin 'MarcWeber/vim-addon-mw-utils'
+            Plugin 'michaeljsmith/vim-indent-object'    " Support 'indent' based actions
+            Plugin 'osyo-manga/vim-anzu'                " Get the count of search hits
+            Plugin 'scrooloose/nerdtree'                " File browser pane
+            Plugin 'scrooloose/syntastic'               " Syntax checking
+            Plugin 'tommcdo/vim-exchange'               " Support exchange of objects
+            Plugin 'tomtom/tcomment_vim'                " Support commenting based on language
+            Plugin 'tomtom/tlib_vim'
+            Plugin 'tpope/vim-abolish'                  " For supporting Subvert i.e. `%S{f,F}oo/{b,B}ar/g`
+            Plugin 'tpope/vim-fugitive'                 " For supporting Git operations
+            Plugin 'tpope/vim-repeat'                   " For support '.' based repeat
+            Plugin 'tpope/vim-surround'                 " Support arbitrary 'surround' actions
+            Plugin 'tpope/vim-unimpaired'               " Miscellaneous 'co' '[' shortcuts
+            Plugin 'garbas/vim-snipmate'                " For supporting common snippet tab-autocompletion
+            Plugin 'honza/vim-snippets'                 " Defines commonly used snippets for multiple languages
+            Plugin 'altercation/vim-colors-solarized'   " Solarized theme
+
         call vundle#end()
 
     filetype plugin on
@@ -65,13 +55,6 @@ scriptencoding utf-8
     syntax on
 
 " Functions
-    function! Standardize()
-        %s/\v([^ =&|%+/*\-!])\=([^ =])/\1 = \2/gc
-        %s/\v([^ ])\=\=([^ ])/\1 == \2/gc
-        %s/\v([^ ])([&|%+/*\-!])\=([^ ])/\1 \2= \3/gc
-        %s/\v([^ ])([&|%+/*\-])([^ =])/\1 \2 \3/gc
-    endfunction
-
     " Define all tab width specific options to the passed value
     function! SetTabWidth(width)
         exec 'set tabstop='    .a:width
@@ -81,111 +64,13 @@ scriptencoding utf-8
 
     " Toggle tw=0/80
     function! ToggleCC()
-        if &cc == "0"
             if &tw == 0
                 exec 'set tw='.w:tw
-            endif
-            set cc=+1
-        else
-            set cc=0
-            let w:tw = &tw
-            set tw=0
-        endif
-    endfunction
-
-    " Toggle mouse=c/a
-    function! ToggleMouse()
-        if &mouse == 'c'
-            set mouse=a
-            return
-        endif
-        set mouse=c
-    endfunction
-
-    " Lightline functions
-        " Override lightline's method to return 'n+' when there are 'n' modified buffers in a tab
-        function! lightline#tab#modified(n)
-            let winnr = tabpagewinnr(a:n)
-            let buflist = tabpagebuflist(a:n)
-            let m = 0 " &modified counter
-            " loop through each buffer in a tab
-            for b in buflist
-                " check and ++ tab's &modified count
-                if getbufvar( b, "&modified" )
-                let m += 1
-                endif
-            endfor
-            return (m > 0) ? (m > 1) ? m.'+' : '+' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : '-'
-        endfunction
-
-        function! LightlineModified()
-            if &filetype == "help"
-                return ""
-            elseif &modified
-                return "+"
-            elseif &modifiable
-                return ""
             else
-                return ""
+                let w:tw = &tw
+                set tw=0
             endif
-        endfunction
-
-        function! LightlineReadonly()
-            if &filetype == "help"
-                return ""
-            elseif &readonly
-                return "x"
-            else
-                return ""
-            endif
-        endfunction
-
-        function! LightlineFugitive()
-            try
-                if expand('%:t') !~? 'NERD' && exists('*fugitive#head')
-                let mark = 'Y '  " edit here for cool mark
-                let _ = fugitive#head()
-                return strlen(_) ? mark._ : ''
-                endif
-            catch
-            endtry
-            return ''
-        endfunction
-
-        function! LightlineFilename()
-            let fname = expand('%:t')
-            return fname =~ 'NERD_tree' ? '' :
-                    \ ('' != fname ? fname : '[No Name]')
-        endfunction
-
-        function! LightlineFileDir()
-            let dirname = expand('%:p:h')
-            let fname = expand('%:t')
-            if fname =~ 'NERD_tree'
-                return ''
-            endif
-            let allowedLen = winwidth(0) - strlen(fname) - 80
-            return allowedLen < 0 ? '' : strlen(dirname) > allowedLen ? '..'.dirname[-(allowedLen):] : dirname
-        endfunction
-
-        function! LightlineMode()
-            let fname = expand('%:t')
-            return fname =~ 'NERD_tree' ? 'NERDTree' :
-                \ winwidth(0) > 60 ? lightline#mode() : ''
-        endfunction
-
-        function! LightlineFileencoding()
-            return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-        endfunction
-
-        function! LightlineFileformat()
-            return winwidth(0) > 70 ? &fileformat : ''
-        endfunction
-
-        function! LightlineFiletype()
-            return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-        endfunction
-
+    endfunction
     " Return the regex to tabularize the selected data into two columns with the provided delimiter
     function! Tabularize2ColumnsRegex()
         call inputsave()
@@ -207,7 +92,7 @@ scriptencoding utf-8
     set nohlsearch
 
 " Text width
-    set tw=80
+    " set tw=80
     set wrap
     set cc=+1           "Display colorcolumn at tw+1
 
@@ -218,9 +103,11 @@ scriptencoding utf-8
     set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo "which commands open a fold
 
 " Colors
-    colorscheme jellybeans
     hi ExtraWhitespace ctermbg=none ctermfg=red
     hi LeadingTab ctermbg=none ctermfg=darkgray
+    let g:solarized_termcolors=256
+    set background=light
+    colorscheme solarized
 
 " Appearance
     set laststatus=2
@@ -240,27 +127,6 @@ scriptencoding utf-8
         set scrolloff=2                 " Always keep 4 lines off the edges when scrolling up/down
         set showcmd                     " show (partial) command in the last line of the screen
                                         " this also shows visual selection info
-
-    " lightline configurations
-        let g:lightline = {
-                    \ 'colorscheme': 'default',
-                    \ 'active': {
-                    \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
-                    \   'right': [ [ 'lineinfo' ], ['percent'], [ 'filedir', 'fileformat', 'fileencoding', 'filetype' ] ]
-                    \ },
-                    \ 'component_function': {
-                    \   'fugitive'     : 'LightlineFugitive',
-                    \   'readonly'     : 'LightlineReadonly',
-                    \   'modified'     : 'LightlineModified',
-                    \   'filename'     : 'LightlineFilename',
-                    \   'fileencoding' : 'LightlineFileencoding',
-                    \   'fileformat'   : 'LightlineFileformat',
-                    \   'filetype'     : 'LightlineFiletype',
-                    \   'filedir'      : 'LightlineFileDir',
-                    \   'mode'         : 'LightlineMode'
-                    \ },
-                    \ 'subseparator': { 'left': "|", 'right': "|" }
-                    \ }
 
 " Behaviour
     set switchbuf=useopen
@@ -344,12 +210,6 @@ scriptencoding utf-8
         vmap  <leader>t  ;Tabularize /\v
         vmap  <leader>T  ;Tabularize /\v=Tabularize2ColumnsRegex()<CR><CR>
 
-        " Unite maps
-            map   <leader>ub  ;Unite buffer<cr>
-            map   <leader>uf  ;Unite file<CR>
-            map   <leader>ut  ;Unite tab<CR>
-            map   <leader>uu  ;Unite buffer file tab<CR>
-
         " CtrlP maps
             map   <leader>pb  ;CtrlPBuffer<CR>
             map   <leader>pf  ;CtrlP<CR>
@@ -382,9 +242,7 @@ scriptencoding utf-8
         map gn ;NERDTree<CR>
         map gN ;NERDTree<CR>
 
-
     " 'co' key maps
-        map com ;call ToggleMouse()<CR>
         map cof ;set foldmethod=indent<CR>
         map cot ;exe 'call inputsave() \| call SetTabWidth(input("Enter tab width: ")) \| call inputrestore()'<CR>
 
@@ -406,9 +264,6 @@ scriptencoding utf-8
 " Plugin Settings
     let g:EasyMotion_leader_key = '<Leader>'
     let g:sparkupNextMapping = '<c-y>'
-    let g:indent_guides_enable_on_vim_startup = 0
-    let g:indent_guides_guide_size = 1
-    let g:indent_guides_start_level = 2
     let g:closetag_filenames = "*.html,*.xml"
     let NERDTreeIgnore = ['\.pyc$']
     let NERDTreeMinimalUI = 1
@@ -438,9 +293,9 @@ scriptencoding utf-8
     au TabLeave * let g:lasttab = tabpagenr()
 
     " Filetype specific
-        au BufNewFile,BufRead *.html    set ts=4 | set sw=4               | set cc=0
-        au BufNewFile,BufRead *.vimrc   set tw=0 | set foldmethod=indent  | set foldenable | set foldlevel=0
-        au BufNewFile,BufRead COMMIT_EDITMSG       set filetype=gitcommit | set tw=50
+        au BufNewFile,BufRead *.htm set ts=4 | set sw=4
+        au BufNewFile,BufRead *.vimrc set foldmethod=indent  | set foldenable | set foldlevel=0
+        au BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit | set tw=50
 
     if &diff != 1 && $NO_LCD != "true"
         autocmd BufEnter * silent! lcd %:p:h
