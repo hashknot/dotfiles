@@ -151,6 +151,7 @@ scriptencoding utf-8
     set wildignore=*.swp,*.bak,*.pyc,*.class
     set noerrorbells                " don't beep
     set timeoutlen=500
+    set modeline                    " enable file-specific vim settings
 
 " Maps
     " Standard keys remaps
