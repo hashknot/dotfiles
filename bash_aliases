@@ -50,3 +50,9 @@ function define() {
 function ghclone() {
     git clone "https://github.com/$1"
 }
+
+alias matlabcli='matlab -nodesktop -nosplash'
+alias aptupdate='sudo apt-get update'
+alias aptupgrade='sudo apt-get upgrade'
+alias aptinstall='sudo apt-get install'
+alias dfh='df -h -t ext2 -t ext3 -t ext4 -t ntfs'
