@@ -65,6 +65,9 @@ scriptencoding utf-8
     " Toggle tw=0/80
     function! ToggleCC()
             if &tw == 0
+                if !exists('w:tw')
+                    let w:tw = 80
+                endif
                 exec 'set tw='.w:tw
             else
                 let w:tw = &tw
