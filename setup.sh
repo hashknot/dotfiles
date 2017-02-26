@@ -74,8 +74,14 @@ _setup_vim(){
 }
 
 _setup_zsh(){
-    curl 'https://raw.githubusercontent.com/hashknot/prezto/master/install.zsh' | zsh
     # wget -O - 'https://raw.githubusercontent.com/hashknot/prezto/master/install.zsh' 2>/dev/null | zsh
+    curl 'https://raw.githubusercontent.com/hashknot/prezto/master/install.zsh' | zsh
+    echo "\n\n"
+    _ask "Do you want to set zsh as your default shell?"
+    if [ $yes -eq 1 ]; then
+        echo "You may be asked to enter your password to change the default shell"
+        chsh -s /bin/zsh
+    fi
 }
 
 if [ "-a" == "$1" -o "-a" == "$2" ]; then
@@ -126,5 +132,4 @@ _ask "Do you want to setup zsh?"
 if [ $yes -eq 1 ]; then
     echo "Setting up zsh..."
     _setup_zsh
-    chsh -s /bin/zsh
 fi
