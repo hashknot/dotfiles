@@ -214,6 +214,9 @@ scriptencoding utf-8
         vmap  <leader>t  ;Tabularize /\v
         vmap  <leader>T  ;Tabularize /\v=Tabularize2ColumnsRegex()<CR><CR>
 
+        " Correct spellings
+        map   <leader>c  1z=
+
         " CtrlP maps
             map   <leader>pb  ;CtrlPBuffer<CR>
             map   <leader>pf  ;CtrlP<CR>
