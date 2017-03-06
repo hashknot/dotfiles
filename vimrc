@@ -173,6 +173,7 @@ scriptencoding utf-8
         vnoremap ? ?\v
         nnoremap / /\v
         vnoremap / /\v
+        vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'
         noremap! <F1>  <Esc>
         nmap n <Plug>(anzu-n-with-echo)
         nmap N <Plug>(anzu-N-with-echo)
