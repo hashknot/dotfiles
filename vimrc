@@ -15,7 +15,7 @@ scriptencoding utf-8
             Plugin 'hashknot/scratch.vim'               " Support 'Vscratch' buffer
             Plugin 'kien/ctrlp.vim'                     " Intelligent file/buffer auto-completion
             Plugin 'klen/python-mode'                   " Python auto-completion
-            Plugin 'Lokaltog/vim-easymotion'            " Support arbitrary jumps to words/characters
+            Plugin 'easymotion/vim-easymotion'          " Support arbitrary jumps to words/characters
             Plugin 'MarcWeber/vim-addon-mw-utils'
             Plugin 'michaeljsmith/vim-indent-object'    " Support 'indent' based actions
             Plugin 'osyo-manga/vim-anzu'                " Get the count of search hits
