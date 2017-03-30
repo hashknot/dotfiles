@@ -1,11 +1,21 @@
-alias ls='ls -1 --color=auto'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX
+    alias ls='ls -1GF'
+    alias sl='ls -lGF'
+    alias ll='ls -hltGF'
+    alias la='ls -ahltGF'
+    alias displayoff='pmset displaysleepnow'
+else
+    # Linux
+    alias ls='ls -1 --color=auto'
+    alias sl='ls -l --color=auto'
+    alias ll='ls -hlt --color=auto'
+    alias la='ls -ahlt --color=auto'
+fi
 alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
 alias shutdown='sudo shutdown'
 alias bandkar='xset dpms force off'
-alias sl='ls -l --color=auto'
-alias ll='ls -hlt --color=auto'
-alias la='ls -ahlt --color=auto'
 alias pdflatex='pdflatex --interaction batchmode'
 alias vim='vim -p '
 alias vimo='vim -O '
