@@ -1,3 +1,4 @@
+" vim: set tw=0:
 scriptencoding utf-8
 
 " Vundle
@@ -152,6 +153,7 @@ scriptencoding utf-8
     set noerrorbells                " don't beep
     set timeoutlen=500
     set modeline                    " enable file-specific vim settings
+    set modelines=5                 " enable file-specific vim settings
 
 " Maps
     " Standard keys remaps
