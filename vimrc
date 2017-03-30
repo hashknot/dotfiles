@@ -32,6 +32,8 @@ scriptencoding utf-8
             Plugin 'garbas/vim-snipmate'                " For supporting common snippet tab-autocompletion
             Plugin 'honza/vim-snippets'                 " Defines commonly used snippets for multiple languages
             Plugin 'altercation/vim-colors-solarized'   " Solarized theme
+            Plugin 'haya14busa/incsearch.vim'           " Improved incsearch
+            Plugin 'haya14busa/incsearch-easymotion.vim'" Easymotion with incsearch
 
         call vundle#end()
 
@@ -182,17 +184,21 @@ scriptencoding utf-8
         map      K <Nop>
         nmap     j gj
         nmap     k gk
-        nnoremap ? ?\v
-        vnoremap ? ?\v
-        nnoremap / /\v
-        vnoremap / /\v
         vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'
         noremap! <F1>  <Esc>
-        nmap n <Plug>(anzu-n-with-echo)
-        nmap N <Plug>(anzu-N-with-echo)
-        nmap * <Plug>(anzu-star-with-echo)
-        nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
-        nmap # <Plug>(anzu-sharp-with-echo)
+
+        " Search related standard remaps
+            map  /  <Plug>(incsearch-forward)
+            map  ?  <Plug>(incsearch-backward)
+            map  g/ <Plug>(incsearch-stay)
+            map  g* <Plug>(incsearch-nohl-g*)
+            map  g# <Plug>(incsearch-nohl-g#)
+            nmap n  <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+            nmap N  <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+            nmap *  <Plug>(anzu-star-with-echo)
+            nmap #  <Plug>(anzu-sharp-with-echo)
+            nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
 
     " Standard keymap remap
         noremap  zH zt
@@ -221,12 +227,13 @@ scriptencoding utf-8
         map   <leader>V  ;so $MYVIMRC<CR>
         map   <leader>x  ;windo q<cr>
         map   <leader>X  ;!chmod +x %<CR>
-        nnoremap   <leader>/  /
-        vnoremap   <leader>/  /
-        nnoremap   <leader>?  ?
-        vnoremap   <leader>?  ?
+
         vmap  <leader>t  ;Tabularize /\v
         vmap  <leader>T  ;Tabularize /\v=Tabularize2ColumnsRegex()<CR><CR>
+
+        map   <leader>/  <Plug>(incsearch-easymotion-/)
+        map   <leader>?  <Plug>(incsearch-easymotion-?)
+        map   <leader>g/ <Plug>(incsearch-easymotion-stay)
 
         " Correct spellings
         map   <leader>c  1z=
@@ -290,6 +297,7 @@ scriptencoding utf-8
     let NERDTreeMinimalUI = 1
     let NERDTreeShowBookmarks = 1
     au BufNewFile,BufRead if &ft == "nerdtree" | call SetTabWidth(2)
+    let g:incsearch#separate_highlight = 1
 
     " pymode/jedi
         let g:pymode_rope = 0
