@@ -114,8 +114,19 @@ scriptencoding utf-8
     colorscheme solarized
 
 " Appearance
-    set laststatus=2
     set cul                         " Highlight cursor line
+
+    " Statusline
+        set laststatus=2            " Always display statusline
+        set statusline =%m          " Modified flag '[+]'
+        set statusline+=\ \%-.60F   " full file path, truncated at 60 chars, left justified
+        set statusline+=%=          " left/right separator
+        set statusline+=%<          " truncate here if out of space
+        set statusline+=%c          " cursor column
+        set statusline+=\ %l/%L     " cursor line/total lines.
+        set statusline+=\ %P        " percent through file
+        set statusline+=\ %R        " read-only flag '[RO]'
+        set statusline+=%Y          " filetype e.g. '[vim]'
 
     " Tabs
         set tabpagemax=20
