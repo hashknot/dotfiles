@@ -10,7 +10,7 @@ escape ^Aa
 bind c screen 1
 defscrollback 4096
 
-hardstatus alwayslastline '%{= M} %H %{= G} %l %= %{= w}%-w%{+b r}%n*%t%{-b r}%{w}%+w %= %{c}%d %D %{B}%c '
+hardstatus alwayslastline '%{= M} %H %{= G} %= %-w%{+b}%n*%t%{-b}%+w %= %{c}%d %D %{B}%c '
 
 # %{= ky}     set color to yellow on black.
 # %{= yk}     set color to black on yellow.
