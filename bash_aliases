@@ -34,6 +34,7 @@ alias ports='netstat -tlnp | column -t '
 alias xo='exo-open '
 alias df='df -h '
 alias py='python '
+alias py3='python3 '
 alias repoClean='repo forall -c "git clean -dfx" -p'
 alias gut='git'
 alias cd..='cd ..'
@@ -66,3 +67,7 @@ alias aptupdate='sudo apt-get update'
 alias aptupgrade='sudo apt-get upgrade'
 alias aptinstall='sudo apt-get install'
 alias dfh='df -h -t ext2 -t ext3 -t ext4 -t ntfs'
+
+function caps2esc() {
+    sudo loadkeys =(echo "keymaps 0-127\nkeycode 58 = Escape")
+}
