@@ -14,7 +14,6 @@ scriptencoding utf-8
             Plugin 'godlygeek/tabular'                  " Support tabular alignment
             Plugin 'hashknot/scratch.vim'               " Support 'Vscratch' buffer
             Plugin 'kien/ctrlp.vim'                     " Intelligent file/buffer auto-completion
-            Plugin 'klen/python-mode'                   " Python auto-completion
             Plugin 'easymotion/vim-easymotion'          " Support arbitrary jumps to words/characters
             Plugin 'MarcWeber/vim-addon-mw-utils'
             Plugin 'michaeljsmith/vim-indent-object'    " Support 'indent' based actions
@@ -34,6 +33,8 @@ scriptencoding utf-8
             Plugin 'altercation/vim-colors-solarized'   " Solarized theme
             Plugin 'haya14busa/incsearch.vim'           " Improved incsearch
             Plugin 'haya14busa/incsearch-easymotion.vim'" Easymotion with incsearch
+            Plugin 'vim-scripts/indentpython.vim'       " Indent python according to PEP8
+            Plugin 'tmhedberg/SimpylFold'               " Fold python
 
         call vundle#end()
 
@@ -64,6 +65,13 @@ scriptencoding utf-8
         exec 'set shiftwidth=' .a:width
         exec 'set softtabstop='.a:width
     endfunction
+
+    function! SetPyTrace(pos)
+        execute "normal! Oimport pdb; pdb.set_trace()"
+        call setpos('.', a:pos)
+        execute "normal! j"
+    endfunction
+
 
     " Toggle tw=0/80
     function! ToggleCC()
@@ -235,6 +243,8 @@ scriptencoding utf-8
         map   <leader>?  <Plug>(incsearch-easymotion-?)
         map   <leader>g/ <Plug>(incsearch-easymotion-stay)
 
+        map  <leader>b   ;call SetPyTrace(getcurpos()) <CR>
+
         " Correct spellings
         map   <leader>c  1z=
 
@@ -300,20 +310,10 @@ scriptencoding utf-8
     let g:incsearch#separate_highlight = 1
 
     " pymode/jedi
-        let g:pymode_rope = 0
-        let g:pymode_doc = 1
-        let g:pymode_doc_key = 'K'
-        let g:pymode_lint = 0
-        let g:pymode_virtualenv = 1
-        let g:pymode_virtualenv_path = $VIRTUAL_ENV
-        let g:pymode_breakpoint = 1
-        let g:pymode_breakpoint_key = '<leader>B'
-        let g:pymode_syntax = 1
-        let g:pymode_syntax_all = 1
-        let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-        let g:pymode_folding = 1
+        let g:jedi#popup_on_dot = 0
+        let g:jedi#popup_select_first = 0
+        let g:jedi#show_call_signatures = 0
         autocmd FileType python setlocal completeopt-=preview
-        autocmd FileType python setlocal foldmethod=expr
 
 " Automate
     au BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$\| \+\ze\t', -1)
