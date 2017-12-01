@@ -5,12 +5,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     alias ll='ls -hltGF'
     alias la='ls -ahltGF'
     alias displayoff='pmset displaysleepnow'
+    alias pyc='find . -type f -name \*.pyc -delete'
 else
     # Linux
     alias ls='ls -1 --color=auto'
     alias sl='ls -l --color=auto'
     alias ll='ls -hlt --color=auto'
     alias la='ls -ahlt --color=auto'
+    alias pyc='pyclean .'
 fi
 alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
@@ -44,7 +46,6 @@ alias gs='g s'
 alias gl='g l'
 alias grep='grep --color=auto'
 alias _='sudo'
-alias pyc='pyclean .'
 alias tl='tmux list-sessions'
 alias ta='tmux attach-session -t'
 
