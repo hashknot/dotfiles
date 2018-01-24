@@ -72,3 +72,6 @@ alias dfh='df -h -t ext2 -t ext3 -t ext4 -t ntfs'
 function caps2esc() {
     sudo loadkeys =(echo "keymaps 0-127\nkeycode 58 = Escape")
 }
+
+alias soundreset='pacmd unload-module module-udev-detect && pacmd load-module module-udev-detect'
+alias vertscroll='synclient VertScrollDelta=-114'
