@@ -36,7 +36,7 @@
 }
 
 .tab.active .active-marker::before {
-  background: #7589c1;
+  background: #4662ad;
   color: white;
 }
 
@@ -55,4 +55,9 @@
 }
 .tab {
   counter-increment: tabs;
+}
+
+.newtab-button-box {
+  font-size: ;
+  overflow: hidden;
 }
