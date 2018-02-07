@@ -35,6 +35,7 @@ scriptencoding utf-8
         Plugin 'haya14busa/incsearch-easymotion.vim'" Easymotion with incsearch
         Plugin 'vim-scripts/indentpython.vim'       " Indent python according to PEP8
         Plugin 'tmhedberg/SimpylFold'               " Fold python
+        Plugin 'webdevel/tabulous'                  " Tab numbers
 
     call vundle#end()
 
@@ -366,6 +367,7 @@ scriptencoding utf-8
     let NERDTreeShowBookmarks = 1
     au BufNewFile,BufRead if &ft == "nerdtree" | call SetTabWidth(2)
     let g:incsearch#separate_highlight = 1
+    let tabulousLabelNameOptions = ':t'
 
     " pymode/jedi
         let g:jedi#popup_on_dot = 0
