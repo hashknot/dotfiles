@@ -5,7 +5,7 @@
     diff        = auto
 
 [alias]
-    l      = !git ll -n 10 | cat | nl -w 3 -v 0 -s \"  \"
+    l      = !git ll --color=always -n 10 | nl -w 3 -v 0 -s \"  \"
     ll     = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]%C(reset)' --decorate --date=short
     lg     = log --stat --max-count=10
     graph  = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
