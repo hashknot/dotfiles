@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Editor backup/swap files
+*.swp
+*.swo
+*~
+
+# Local overrides (machine-specific, not for sharing)
+zshrc.local
+gitconfig_local

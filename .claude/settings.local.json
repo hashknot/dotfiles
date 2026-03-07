@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/jitesh/.claude/plugins/**)",
+      "Read(//Users/jitesh/.claude/**)",
+      "Skill(keybindings-help)"
+    ]
+  }
+}
