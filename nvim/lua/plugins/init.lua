@@ -31,8 +31,8 @@ require('lazy').setup({
         require('plugins.fzf')
       end,
       keys = {
-        { '<C-p>', '<cmd>FzfLua files<cr>', desc = 'Find files' },
-        { '<D-p>', '<cmd>FzfLua files<cr>', desc = 'Find files' },
+        { '<C-p>', function() require('plugins.fzf').files() end, desc = 'Find files' },
+        { '<D-p>', function() require('plugins.fzf').files() end, desc = 'Find files' },
       },
     },
     {

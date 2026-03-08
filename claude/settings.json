@@ -1,8 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "vim": true,
   "attribution": {
     "commit": "",
     "pr": ""
-  }
+  },
+  "vim": true,
+  "model": "opus"
 }
