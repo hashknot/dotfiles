@@ -42,4 +42,5 @@ require('lazy').setup({
         require('plugins.diffview')
       end,
     },
+    require('plugins.render-markdown'),
 })

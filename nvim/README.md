@@ -9,18 +9,32 @@ lua/
   keymaps.lua             -- Key mappings, with separate sections for vscode-neovim and terminal nvim
   autocmds.lua            -- Autocommands and colorscheme setup
   plugins/
-    init.lua              -- Plugin declarations via lazy.nvim
+    init.lua              -- Plugin declarations via lazy.nvim (explicit list, not auto-scanned)
     <plugin>.lua          -- Per-plugin configuration (setup, keymaps, options)
+  custom/
+    directory-watcher.lua -- vim.uv fs_event watcher utility
 ```
 
 ## Guidelines
 
 ### Adding a plugin
 
-1. Add the plugin spec to `plugins/init.lua`.
-2. If the plugin needs more than just `opts = {}`, create a dedicated `plugins/<plugin>.lua` file and reference it with `config = function() require('plugins.<plugin>') end`.
-3. Keep plugin-specific keymaps in the plugin spec (`keys = { ... }`) or in the plugin's config file — not in `keymaps.lua`.
-4. Use lazy-loading where possible (`event`, `keys`, `cmd`, `ft`).
+Plugins are **not** auto-scanned — every plugin must be explicitly listed inside the `require('lazy').setup({ ... })` table in `plugins/init.lua`.
+
+**Simple plugin** (inline spec, no dedicated file):
+
+```lua
+-- plugins/init.lua
+{ 'author/plugin.nvim', opts = {} },
+```
+
+**Complex plugin** (dedicated config file):
+
+1. Create `plugins/<plugin>.lua` returning a lazy spec table (i.e. `return { 'author/plugin.nvim', config = function() ... end }`).
+2. Add `require('plugins.<plugin>')` as an entry in the `require('lazy').setup({ ... })` table in `plugins/init.lua`.
+
+Keep plugin-specific keymaps in the plugin spec (`keys = { ... }`) or in the plugin's config file — not in `keymaps.lua`.
+Use lazy-loading where possible (`event`, `keys`, `cmd`, `ft`).
 
 ### Keymaps
 
