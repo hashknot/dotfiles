@@ -43,4 +43,5 @@ require('lazy').setup({
       end,
     },
     require('plugins.render-markdown'),
+    require('plugins.yazi'),
 })
