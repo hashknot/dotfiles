@@ -5,11 +5,11 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 
-vim.cmd.colorscheme "wildcharm"
+vim.cmd.colorscheme "catppuccin"
 vim.api.nvim_create_autocmd("OptionSet", {
   pattern = "background",
   callback = function()
-    vim.cmd.colorscheme("wildcharm")
+    vim.cmd.colorscheme("catppuccin")
   end,
 })
 

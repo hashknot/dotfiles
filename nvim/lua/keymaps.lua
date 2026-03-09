@@ -79,6 +79,7 @@ else
     vim.opt.autochdir = true
 
     vim.keymap.set('v', '<Leader>S', "<cmd>'<,'>:!sort<cr>")
+    vim.keymap.set('n', '<Leader>d', '<cmd>DiffviewOpen<cr>')
 
     -- Quit all windows in the current tab
     vim.keymap.set('n', '<Leader>x', '<cmd>windo q<cr>')

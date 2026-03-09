@@ -7,10 +7,46 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
     {
-        "folke/tokyonight.nvim",
+        "catppuccin/nvim",
+        name = "catppuccin",
         lazy = false,
         priority = 1000,
-        opts = {},
+        opts = {
+            highlight_overrides = {
+                mocha = function(colors)
+                    local blend = function(fg, bg, alpha)
+                        local f = type(fg) == "string" and tonumber(fg:sub(2), 16) or fg
+                        local b = type(bg) == "string" and tonumber(bg:sub(2), 16) or bg
+                        local r = math.floor(bit.band(bit.rshift(f, 16), 0xFF) * alpha + bit.band(bit.rshift(b, 16), 0xFF) * (1 - alpha))
+                        local g = math.floor(bit.band(bit.rshift(f, 8), 0xFF) * alpha + bit.band(bit.rshift(b, 8), 0xFF) * (1 - alpha))
+                        local bl = math.floor(bit.band(f, 0xFF) * alpha + bit.band(b, 0xFF) * (1 - alpha))
+                        return string.format("#%02x%02x%02x", r, g, bl)
+                    end
+                    return {
+                        DiffAdd = { bg = blend(colors.green, colors.base, 0.25) },
+                        DiffDelete = { bg = blend(colors.red, colors.base, 0.25) },
+                        DiffChange = { bg = blend(colors.yellow, colors.base, 0.15) },
+                        DiffText = { bg = blend(colors.blue, colors.base, 0.35) },
+                    }
+                end,
+                latte = function(colors)
+                    local blend = function(fg, bg, alpha)
+                        local f = type(fg) == "string" and tonumber(fg:sub(2), 16) or fg
+                        local b = type(bg) == "string" and tonumber(bg:sub(2), 16) or bg
+                        local r = math.floor(bit.band(bit.rshift(f, 16), 0xFF) * alpha + bit.band(bit.rshift(b, 16), 0xFF) * (1 - alpha))
+                        local g = math.floor(bit.band(bit.rshift(f, 8), 0xFF) * alpha + bit.band(bit.rshift(b, 8), 0xFF) * (1 - alpha))
+                        local bl = math.floor(bit.band(f, 0xFF) * alpha + bit.band(b, 0xFF) * (1 - alpha))
+                        return string.format("#%02x%02x%02x", r, g, bl)
+                    end
+                    return {
+                        DiffAdd = { bg = blend(colors.green, colors.base, 0.15) },
+                        DiffDelete = { bg = blend(colors.red, colors.base, 0.15) },
+                        DiffChange = { bg = blend(colors.yellow, colors.base, 0.10) },
+                        DiffText = { bg = blend(colors.blue, colors.base, 0.25) },
+                    }
+                end,
+            },
+        },
     },
     {
         "kylechui/nvim-surround",
@@ -41,6 +77,25 @@ require('lazy').setup({
       config = function()
         require('plugins.diffview')
       end,
+    },
+    {
+      'NMAC427/guess-indent.nvim',
+      event = 'BufReadPre',
+      opts = {},
+    },
+    {
+      'kevinhwang91/nvim-ufo',
+      dependencies = { 'kevinhwang91/promise-async' },
+      event = 'BufReadPost',
+      keys = {
+        { 'zR', function() require('ufo').openAllFolds() end, desc = 'Open all folds' },
+        { 'zM', function() require('ufo').closeAllFolds() end, desc = 'Close all folds' },
+      },
+      opts = {
+        provider_selector = function()
+          return { 'indent' }
+        end,
+      },
     },
     require('plugins.render-markdown'),
     require('plugins.yazi'),
