@@ -80,6 +80,16 @@ else
 
     vim.keymap.set('v', '<Leader>S', "<cmd>'<,'>:!sort<cr>")
     vim.keymap.set('n', '<Leader>d', '<cmd>DiffviewOpen<cr>')
+    vim.keymap.set('n', '<Leader>bg', function()
+        vim.o.background = vim.o.background == 'dark' and 'light' or 'dark'
+    end, { desc = 'Toggle background dark/light' })
+    vim.keymap.set('n', '<Leader>rc', '<cmd>source $MYVIMRC<cr>', { desc = 'Reload config' })
+
+    -- Reload current file from disk
+    vim.keymap.set('n', 'ge', '<cmd>edit!<cr>', { desc = 'Reload file' })
+
+    -- Yank to system clipboard via OSC 52
+    vim.keymap.set({'n', 'v'}, '<Leader>y', '"+y', { desc = 'Yank to clipboard' })
 
     -- Quit all windows in the current tab
     vim.keymap.set('n', '<Leader>x', '<cmd>windo q<cr>')

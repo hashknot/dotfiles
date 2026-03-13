@@ -8,7 +8,14 @@ local function get_root()
   return vim.fn.getcwd()
 end
 
-fzf.setup({})
+fzf.setup({
+  keymap = {
+    fzf = {
+      ['alt-j'] = 'down',
+      ['alt-k'] = 'up',
+    },
+  },
+})
 
 return {
   files = function() fzf.files({ cwd = get_root() }) end,

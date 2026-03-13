@@ -97,6 +97,55 @@ require('lazy').setup({
         end,
       },
     },
+    {
+      'gbprod/substitute.nvim',
+      event = 'VeryLazy',
+      opts = {},
+      keys = {
+        { 'cp', function() require('substitute').operator() end, desc = 'Substitute' },
+        { 'cpp', function() require('substitute').line() end, desc = 'Substitute line' },
+        { 'cp', function() require('substitute').visual() end, mode = 'x', desc = 'Substitute visual' },
+        { 'cx', function() require('substitute.exchange').operator() end, desc = 'Exchange' },
+        { 'cxx', function() require('substitute.exchange').line() end, desc = 'Exchange line' },
+        { 'X', function() require('substitute.exchange').visual() end, mode = 'x', desc = 'Exchange visual' },
+        { 'cxc', function() require('substitute.exchange').cancel() end, desc = 'Exchange cancel' },
+      },
+    },
+    {
+      'folke/flash.nvim',
+      event = 'VeryLazy',
+      opts = {},
+      keys = {
+        { 'gs', function() require('flash').jump() end, mode = { 'n', 'x', 'o' }, desc = 'Flash' },
+        { 'S', function() require('flash').treesitter() end, mode = { 'n', 'x', 'o' }, desc = 'Flash Treesitter' },
+      },
+    },
+    {
+      'echasnovski/mini.align',
+      event = 'VeryLazy',
+      opts = {},
+    },
+    {
+      'neovim/nvim-lspconfig',
+      ft = 'proto',
+      config = function()
+        vim.lsp.config('buf_ls', {
+          cmd = { 'buf', 'beta', 'lsp' },
+          filetypes = { 'proto' },
+          root_markers = { 'buf.yaml', 'buf.work.yaml', '.git' },
+        })
+        vim.lsp.enable('buf_ls')
+      end,
+    },
+    {
+      'nvim-treesitter/nvim-treesitter',
+      build = ':TSUpdate',
+      event = 'BufReadPost',
+      opts = {
+        ensure_installed = { 'proto' },
+        highlight = { enable = true },
+      },
+    },
     require('plugins.render-markdown'),
     require('plugins.yazi'),
 })
