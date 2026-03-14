@@ -17,6 +17,42 @@ fzf.setup({
   },
 })
 
+local function files(opts)
+  opts = vim.tbl_extend('force', { cwd = get_root() }, opts or {})
+  fzf.files(opts)
+end
+
 return {
-  files = function() fzf.files({ cwd = get_root() }) end,
+  files = function()
+    files({
+      actions = {
+        ['ctrl-g'] = function(_, o)
+          files({
+            fd_opts = table.concat({
+              '--no-ignore',
+              '--exclude node_modules',
+              '--exclude __pycache__',
+              '--exclude .git',
+              '--exclude .venv',
+              '--exclude venv',
+              '--exclude dist',
+              '--exclude build',
+              '--exclude .next',
+              '--exclude .nuxt',
+              '--exclude .cache',
+              '--exclude .tox',
+              '--exclude .mypy_cache',
+              '--exclude .pytest_cache',
+              '--exclude .ruff_cache',
+              '--exclude *.pyc',
+              '--exclude Pods',
+              '--exclude .expo',
+              '--exclude .pnpm-store',
+            }, ' '),
+            query = o.last_query,
+          })
+        end,
+      },
+    })
+  end,
 }
