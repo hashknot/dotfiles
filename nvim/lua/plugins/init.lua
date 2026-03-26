@@ -69,6 +69,8 @@ require('lazy').setup({
       keys = {
         { '<C-p>', function() require('plugins.fzf').files() end, desc = 'Find files' },
         { '<D-p>', function() require('plugins.fzf').files() end, desc = 'Find files' },
+        { '<leader>f', function() require('plugins.fzf').files() end, desc = 'Find files' },
+        { '<leader>F', function() require('plugins.fzf').files_cwd() end, desc = 'Find files (cwd)' },
       },
     },
     {

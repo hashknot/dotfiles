@@ -23,9 +23,18 @@ local function files(opts)
 end
 
 return {
+  files_cwd = function()
+    files({ cwd = vim.fn.expand('%:p:h') })
+  end,
   files = function()
     files({
       actions = {
+        ['ctrl-d'] = function(_, o)
+          files({
+            cwd = vim.fn.expand('%:p:h'),
+            query = o.last_query,
+          })
+        end,
         ['ctrl-g'] = function(_, o)
           files({
             fd_opts = table.concat({
